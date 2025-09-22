@@ -1,0 +1,31 @@
+.panel
+{
+  display: grid;
+  width: min(95%, 50rem);
+
+  grid-template-columns: 12rem 25rem 12rem;
+
+  .calculation_container
+  {
+      grid-column: 2 / 3;
+      
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+  }
+
+  .timer
+  {
+    grid-column: 3 / 4;
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    
+    font-weight: 500;
+
+    .time {
+      font-variant-numeric: tabular-nums;
+    }
+  }
+}

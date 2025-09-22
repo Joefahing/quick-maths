@@ -1,0 +1,57 @@
+ul 
+{
+    padding: 0;
+    margin: 0;
+}
+
+h2
+{
+    margin: 0;
+}
+
+.score_panel
+{
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    align-items: center;
+
+    span
+    {
+        font-weight: 500;
+    }
+
+    .result
+    {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        
+        .answer
+        {
+            display: grid;
+            grid-template-columns:6rem auto 5rem;
+            gap: 1rem;
+        }
+    }
+
+    .sucess_rate
+    {
+        font-size: 20px;
+        
+        .face
+        {
+            margin-left: 1rem;
+        }
+    }
+}
+
+.expression
+{
+    color: greenyellow;
+}
+
+.incorrect
+{
+    color: red;
+}

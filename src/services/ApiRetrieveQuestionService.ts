@@ -1,0 +1,21 @@
+import type { Question } from "../assets/types";
+import RetrieveQuestionService from "./RetrieveQuestionService";
+
+class ApiRetrieveQuestionService extends RetrieveQuestionService
+{
+    public async getQuestion(): Promise<Question[] | null> {
+        
+        const response: Response = await fetch('/mock-data.json');
+
+        if (!response.ok)
+        {
+            return null;
+        }
+        
+        const rawData: any = await response.json();
+        
+        return rawData.questions;
+    }
+}
+
+export default ApiRetrieveQuestionService;

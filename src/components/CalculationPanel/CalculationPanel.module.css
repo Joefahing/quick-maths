@@ -6,7 +6,7 @@
   grid-template-columns: 1fr;
   grid-template-areas: "timer" "calculation";
   gap: 2rem;
-  margin-top: -10vh; 
+  transform: translateY(-15%);
  
   .calculation_container
   {

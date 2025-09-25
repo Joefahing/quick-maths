@@ -1,5 +1,5 @@
-import type { Question } from "../assets/types";
-import RetrieveQuestionService from "./RetrieveQuestionService";
+import type { Question }                            from "../assets/types";
+import RetrieveQuestionService                      from "./RetrieveQuestionService";
 
 class ApiRetrieveQuestionService extends RetrieveQuestionService
 {
@@ -12,10 +12,14 @@ class ApiRetrieveQuestionService extends RetrieveQuestionService
             return null;
         }
         
-        const rawData: any = await response.json();
+        const rawData: ApiQuestionsResponse = await response.json();
         
         return rawData.questions;
     }
 }
 
 export default ApiRetrieveQuestionService;
+
+type ApiQuestionsResponse = {
+    questions: Question[]
+}

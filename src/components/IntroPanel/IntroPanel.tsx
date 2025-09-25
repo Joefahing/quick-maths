@@ -1,6 +1,6 @@
 
-import useKeydown from '../../assets/hooks/useKeydown';
-import styles from './IntroPanel.module.css';
+import useKeydown                                       from '../../assets/hooks/useKeydown';
+import styles                                           from './IntroPanel.module.css';
 
 export function IntroPanel(prop: {onStart: () => void})
 {

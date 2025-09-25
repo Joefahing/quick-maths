@@ -1,7 +1,7 @@
-import type { JSX } from "react";
-import styles from './PreviousQuestion.module.css';
-import type { QuestionAnswer } from "../../../assets/types";
-import classNames from "classnames/bind";
+import type { JSX }                                 from "react";
+import styles                                       from './PreviousQuestion.module.css';
+import type { QuestionAnswer }                      from "../../../assets/types";
+import classNames                                   from "classnames/bind";
 
 const cx = classNames.bind(styles);
 

@@ -12,3 +12,14 @@ button
   width: 200px;
   border-color: aliceblue;
 }
+
+.quick-math-app
+{
+  height: 100%;
+  width: 100%;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; 
+}

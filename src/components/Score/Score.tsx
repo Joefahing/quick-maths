@@ -1,10 +1,10 @@
-import { type JSX } from "react";
-import useKeydown from "../../assets/hooks/useKeydown";
-import type { QuestionAnswer } from "../../assets/types";
-import styles from "./Scores.module.css";
-import errorIcon from "../../assets/icons/error_icon.svg";
-import checkIcon from "../../assets/icons/check_icon.svg";
-import classNames from "classnames/bind";
+import { type JSX }                                 from "react";
+import useKeydown                                   from "../../assets/hooks/useKeydown";
+import type { QuestionAnswer }                      from "../../assets/types";
+import styles                                       from "./Scores.module.css";
+import errorIcon                                    from "../../assets/icons/error_icon.svg";
+import checkIcon                                    from "../../assets/icons/check_icon.svg";
+import classNames                                   from "classnames/bind";
 
 const cn = classNames.bind(styles);
 export function Score(prop: {answers: QuestionAnswer[], onAgain: () => void}): JSX.Element
@@ -41,7 +41,7 @@ export function Score(prop: {answers: QuestionAnswer[], onAgain: () => void}): J
 
     const correctAnswerCount: number = answers.filter(x => x.isCorrect).length;
     const successRate: number = correctAnswerCount / answers.length;
-    let face: string = ''
+    let face: string = '';
     
     if (successRate >= 0.7) {
         face = ')';

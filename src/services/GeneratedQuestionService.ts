@@ -1,12 +1,12 @@
-import type { Question } from "../assets/types";
-import QuestionService from "./QuestionService";
-import RetrieveQuestionService from "./RetrieveQuestionService";
+import type { Question }                            from "../assets/types";
+import QuestionService                              from "./QuestionService";
+import RetrieveQuestionService                      from "./RetrieveQuestionService";
 
 class GeneratedQuestionService extends RetrieveQuestionService
 {
     private maxDigits: number = 2;
-    private maxQuestionCount: number = 15;
-    private minQuestionCount: number = 10;
+    private maxQuestionCount: number = 10;
+    private minQuestionCount: number = 7;
     private operators: string[] = ['+', '-', 'x'];
 
     public async getQuestion(): Promise<Question[] | null> {

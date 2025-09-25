@@ -1,10 +1,19 @@
-import { useEffect, useState, type JSX } from "react";
-import type { Question, QuestionAnswer } from "../../assets/types";
-import MainCalculationQuestion from "./MainCalculationQuestion/MainCalculationQuestion";
-import UpcomingQuestion from "./UpcomingQuestion/UpcomingQuestion";
-import styles from "./CalculationPanel.module.css";
-import PreviousQuestion from "./PreviousQuestion/PreviousQuestion";
-import QuestionService from "../../services/QuestionService";
+import 
+{ 
+    useEffect, 
+    useState, 
+    type JSX 
+}                                                   from "react";
+import type 
+{ 
+    Question, 
+    QuestionAnswer 
+}                                                   from "../../assets/types";
+import MainCalculationQuestion                      from "./MainCalculationQuestion/MainCalculationQuestion";
+import UpcomingQuestion                             from "./UpcomingQuestion/UpcomingQuestion";
+import styles                                       from "./CalculationPanel.module.css";
+import PreviousQuestion                             from "./PreviousQuestion/PreviousQuestion";
+import QuestionService                              from "../../services/QuestionService";
 
 export function CalculationPanel(prop: CalculationPanelProp): JSX.Element
 {

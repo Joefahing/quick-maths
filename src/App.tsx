@@ -1,4 +1,10 @@
-import { useEffect, useState, type JSX }            from 'react'
+import 
+{ 
+  useEffect, 
+  useRef, 
+  useState, 
+  type JSX 
+}                                                   from 'react'
 import { GameStatus }                               from './assets/types'
 import { IntroPanel }                               from './components/IntroPanel/IntroPanel';
 import 
@@ -8,9 +14,9 @@ import
 }                                                   from './components/CalculationPanel/CalculationPanel';
 import { Score }                                    from './components/Score/Score';
 import type { Question, QuestionAnswer }            from './assets/types'
-import  './App.css'
 import type FetchQuestionService                    from './services/RetrieveQuestionService';
 import GeneratedQuestionService                     from './services/GeneratedQuestionService';
+import './App.css'
 
 function App(): JSX.Element 
 {
@@ -18,7 +24,7 @@ function App(): JSX.Element
   const [questions, setQuestions] = useState<Question[]>([]);
   const [questionAnswers, setQuestionAnswers] = useState<QuestionAnswer[]>([]);
 
-  const fetchQuestionService: FetchQuestionService = new GeneratedQuestionService();
+  const fetchQuestionService: FetchQuestionService = useRef(new GeneratedQuestionService()).current;
 
   useEffect(() => {
     fetchQuestionService.getQuestion().then((questionsFromApi: Question[] | null) =>
@@ -67,18 +73,25 @@ function App(): JSX.Element
       onQuestionAnswered: handleQuestionAnswered
   }
 
-  if (gameStatus === GameStatus.Ready) 
+  const currentPanel = (): JSX.Element =>
   {
-    return <IntroPanel onStart={() => handleStatusChange(GameStatus.Playing)}/>
-  }
-  else if (gameStatus === GameStatus.Playing) 
-  {
-    return <CalculationPanel {...calculationPanelProp}/>
-  }
-  else
-  {
-    return <Score answers={questionAnswers} onAgain={handleReset} />
-  }
+    if (gameStatus === GameStatus.Ready) 
+    {
+      return <IntroPanel onStart={() => handleStatusChange(GameStatus.Playing)}/>
+    }
+    else if (gameStatus === GameStatus.Playing) 
+    {
+      return <CalculationPanel {...calculationPanelProp}/>
+    }
+    else
+    {
+      return <Score answers={questionAnswers} onAgain={handleReset} />
+    }
+  };
+
+  return (
+    <div className='quick-math-app'>{currentPanel()}</div>
+  );
 }
 
 export default App

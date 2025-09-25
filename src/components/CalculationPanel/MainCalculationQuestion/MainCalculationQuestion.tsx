@@ -32,7 +32,6 @@ function MainCalculationQuestion(prop: {expression: string, onAnswerEntered: (an
                     type="text"
                     pattern="[0-9]*"
                     maxLength={8}
-                    inputMode="numeric"
                     ref={inputRef}
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}

@@ -1,5 +1,5 @@
-import type { JSX } from "react";
-import styles from './UpcomingQuestion.module.css';
+import type { JSX }                                 from "react";
+import styles                                       from './UpcomingQuestion.module.css';
 
 function UpcomingQuestion(prop: {expression: string | undefined}): JSX.Element
 {

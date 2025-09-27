@@ -4,22 +4,32 @@ import styles from './MainCalculationQuestion.module.css';
 function MainCalculationQuestion(prop: {expression: string, onAnswerEntered: (answer: number) => void}): JSX.Element
 {
     const [inputValue, setInputValue] = useState<string>('');
-
     const inputRef = useRef<HTMLInputElement | null>(null);
     const {expression, onAnswerEntered} = prop;
 
-    const handleAnswer = (event: React.KeyboardEvent<HTMLInputElement>): void => {
-        if (event.key !== 'Enter') return;
+    const submitAnswer = (answer: string): void =>
+    {
+        if (answer === '') return;
         
-        const raw = event.currentTarget.value.trim();
-        if (raw === '') return;
-        
-        const value = Number(raw);
+        const value = Number(answer);
         if (Number.isNaN(value)) return;
         
         onAnswerEntered(value);
         setInputValue('');
+    }
+
+    const handleSubmitAnswerByKey = (event: React.KeyboardEvent<HTMLInputElement>): void => {
+        if (event.key !== 'Enter') return;
+        
+        const answer = event.currentTarget.value.trim();
+        submitAnswer(answer);
     };
+
+    const handleSubmitAnswerByButton = (): void =>
+    {
+        const answer: string = inputRef.current?.value.trim() ?? '';
+        submitAnswer(answer);
+    }
 
     useEffect(() => inputRef.current?.focus(), [expression]);
 
@@ -31,13 +41,18 @@ function MainCalculationQuestion(prop: {expression: string, onAnswerEntered: (an
                     className={styles.answer_input}
                     type="text"
                     pattern="[0-9]*"
-                    inputMode="text"
+                    inputMode="numeric"
                     maxLength={8}
                     ref={inputRef}
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
-                    onKeyDown={handleAnswer}/>
-                <div>Press enter to submit</div>
+                    onKeyDown={handleSubmitAnswerByKey}/>
+                <button 
+                    className={styles.submit_button} 
+                    onClick={handleSubmitAnswerByButton}
+                    type="button"
+                    >Submit</button>
+                <div>Press enter or use button to submit</div>
             </div>
         </>
     );

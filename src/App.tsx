@@ -5,7 +5,6 @@ import
   useState, 
   type JSX 
 }                                                   from 'react'
-import { GameStatus }                               from './assets/types'
 import { IntroPanel }                               from './components/IntroPanel/IntroPanel';
 import 
 { 
@@ -17,13 +16,21 @@ import type { Question, QuestionAnswer }            from './assets/types'
 import type FetchQuestionService                    from './services/RetrieveQuestionService';
 import GeneratedQuestionService                     from './services/GeneratedQuestionService';
 import './App.css'
+import 
+{ 
+  Route, 
+  Routes, 
+  useNavigate, 
+  type NavigateFunction 
+}                                                   from 'react-router-dom';
+import paths                                        from './routes/routes';
 
 function App(): JSX.Element 
 {
-  const [gameStatus, setGameStatus] = useState<GameStatus>(GameStatus.Ready);
   const [questions, setQuestions] = useState<Question[]>([]);
   const [questionAnswers, setQuestionAnswers] = useState<QuestionAnswer[]>([]);
 
+  const navigate: NavigateFunction = useNavigate();
   const fetchQuestionService: FetchQuestionService = useRef(new GeneratedQuestionService()).current;
 
   useEffect(() => {
@@ -36,9 +43,10 @@ function App(): JSX.Element
     });
   }, []);
 
-  const handleStatusChange = (newGameStatus: GameStatus): void =>
+ 
+  const handleStart = (): void =>
   {
-    setGameStatus(newGameStatus);
+    navigate(paths.calculate);
   }
 
   const handleQuestionAnswered = (answeredQuestion: QuestionAnswer): void =>
@@ -48,13 +56,13 @@ function App(): JSX.Element
 
     if (newQuestionAnswers.length === questions.length)
     {
-      setGameStatus(GameStatus.Finished);
+      navigate(paths.score);
     }
   }
 
   const handleReset = (): void =>
   {
-    setGameStatus(GameStatus.Ready);
+    navigate(paths.home);
     setQuestionAnswers([]);
     fetchQuestionService.getQuestion().then((questionsFromApi: Question[] | null) =>
     {
@@ -73,24 +81,14 @@ function App(): JSX.Element
       onQuestionAnswered: handleQuestionAnswered
   }
 
-  const currentPanel = (): JSX.Element =>
-  {
-    if (gameStatus === GameStatus.Ready) 
-    {
-      return <IntroPanel onStart={() => handleStatusChange(GameStatus.Playing)}/>
-    }
-    else if (gameStatus === GameStatus.Playing) 
-    {
-      return <CalculationPanel {...calculationPanelProp}/>
-    }
-    else
-    {
-      return <Score answers={questionAnswers} onAgain={handleReset} />
-    }
-  };
-
   return (
-    <div className='quick-math-app'>{currentPanel()}</div>
+    <div className='quick-math-app'>
+      <Routes>
+        <Route path="/" element={ <IntroPanel onStart={handleStart}/>} />
+        <Route path="/calculate" element={ <CalculationPanel {...calculationPanelProp}/> }/>
+        <Route path="/score" element={ <Score answers={questionAnswers} onAgain={handleReset} /> }/>
+      </Routes>
+    </div>
   );
 }
 

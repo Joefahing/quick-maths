@@ -14,16 +14,31 @@ import UpcomingQuestion                             from "./UpcomingQuestion/Upc
 import styles                                       from "./CalculationPanel.module.css";
 import PreviousQuestion                             from "./PreviousQuestion/PreviousQuestion";
 import QuestionService                              from "../../services/QuestionService";
+import { Navigate } from "react-router-dom";
+import paths from "../../routes/routes";
 
 export function CalculationPanel(prop: CalculationPanelProp): JSX.Element
 {
     const [seconds,  setSeconds] = useState<number>(0);
-
     const {questions, answers, currentIndex, onQuestionAnswered} = prop;
     const lastAnswer: QuestionAnswer | undefined = answers[answers.length - 1] ?? undefined;
     const nextQuestion: Question | undefined = questions[currentIndex + 1] ?? undefined;
     const currentQuestion: Question = questions[currentIndex];
 
+    useEffect(() => 
+    {
+        const interval: number = setInterval(() =>
+            {
+                setSeconds(prev => prev + 1);
+            }, 1000);
+        
+        return () => 
+            {
+                clearInterval(interval);
+                setSeconds(0);
+            }
+    }, []);
+                
     function handleQuestionEntered(answer: number): void 
     {
         const result: QuestionAnswer = {
@@ -36,19 +51,10 @@ export function CalculationPanel(prop: CalculationPanelProp): JSX.Element
         onQuestionAnswered(result);
     }
 
-    useEffect(() => 
+    if (questions.length == 0)
     {
-        const interval: number = setInterval(() =>
-        {
-            setSeconds(prev => prev + 1);
-        }, 1000);
-        
-        return () => 
-        {
-            clearInterval(interval);
-            setSeconds(0);
-        }
-    }, []);
+        return <Navigate to={paths.home} />;
+    }
 
     return (
         <>

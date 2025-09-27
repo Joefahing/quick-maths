@@ -5,6 +5,8 @@ import styles                                       from "./Scores.module.css";
 import errorIcon                                    from "../../assets/icons/error_icon.svg";
 import checkIcon                                    from "../../assets/icons/check_icon.svg";
 import classNames                                   from "classnames/bind";
+import { Navigate } from "react-router-dom";
+import paths from "../../routes/routes";
 
 const cn = classNames.bind(styles);
 export function Score(prop: {answers: QuestionAnswer[], onAgain: () => void}): JSX.Element
@@ -49,6 +51,11 @@ export function Score(prop: {answers: QuestionAnswer[], onAgain: () => void}): J
         face = '|';
     } else {
         face = '(';
+    }
+
+    if (answers.length == 0)
+    {
+        return <Navigate to={paths.home} />;
     }
 
     return (

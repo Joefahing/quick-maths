@@ -25,6 +25,8 @@ import
 }                                                   from 'react-router-dom';
 import paths                                        from './routes/routes';
 
+// TODO: Investigate context api
+
 function App(): JSX.Element 
 {
   const [questions, setQuestions] = useState<Question[]>([]);

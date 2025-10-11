@@ -5,13 +5,13 @@ import styles                                       from "./Scores.module.css";
 import errorIcon                                    from "../../assets/icons/error_icon.svg";
 import checkIcon                                    from "../../assets/icons/check_icon.svg";
 import classNames                                   from "classnames/bind";
-import { Navigate } from "react-router-dom";
-import paths from "../../routes/routes";
+import { Navigate }                                 from "react-router-dom";
+import paths                                        from "../../routes/routes";
 
-const cn = classNames.bind(styles);
-export function Score(prop: {answers: QuestionAnswer[], onAgain: () => void}): JSX.Element
+const className = classNames.bind(styles);
+export function Score(props: {answers: QuestionAnswer[], onAgain: () => void}): JSX.Element
 {
-    const {answers, onAgain} = prop;
+    const {answers, onAgain} = props;
 
     function getAnswerString(questionAnswer: QuestionAnswer)
     {
@@ -22,7 +22,7 @@ export function Score(prop: {answers: QuestionAnswer[], onAgain: () => void}): J
     {
         return answers.map((answer: QuestionAnswer, index: number) =>
         {
-            const expressionClassName: string = cn({
+            const expressionClassName: string = className({
                 expression: true,
                 incorrect: !answer.isCorrect
             });

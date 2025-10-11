@@ -1,18 +1,26 @@
 import 
 { 
-  useEffect, 
   useRef, 
   useState, 
   type JSX 
 }                                                   from 'react'
-import { IntroPanel }                               from './components/IntroPanel/IntroPanel';
+import 
+{ 
+  IntroPanel, 
+  type IntroPanelProps 
+}                                                   from './components/IntroPanel/IntroPanel';
 import 
 { 
   CalculationPanel, 
   type CalculationPanelProp 
 }                                                   from './components/CalculationPanel/CalculationPanel';
 import { Score }                                    from './components/Score/Score';
-import type { Question, QuestionAnswer }            from './assets/types'
+import  
+{
+  type Question, 
+  type QuestionAnswer, 
+  Operation
+}            from './assets/types'
 import type FetchQuestionService                    from './services/RetrieveQuestionService';
 import GeneratedQuestionService                     from './services/GeneratedQuestionService';
 import './App.css'
@@ -26,32 +34,29 @@ import
 import paths                                        from './routes/routes';
 
 // TODO: Investigate context api
+// TODO: Refactor this component to reduce states and handlers
 
 function App(): JSX.Element 
 {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [questionAnswers, setQuestionAnswers] = useState<QuestionAnswer[]>([]);
+  const [selectedOperations, setSelectedOperations] = useState<Operation>(Operation.Add);
 
   const navigate: NavigateFunction = useNavigate();
   const fetchQuestionService: FetchQuestionService = useRef(new GeneratedQuestionService()).current;
-
-  useEffect(() => {
-    fetchQuestionService.getQuestion().then((questionsFromApi: Question[] | null) =>
-    {
-      if (questionsFromApi != null)
-      {
-        setQuestions(questionsFromApi);
-      }
-    });
-  }, []);
-
- 
-  const handleStart = (): void =>
+   
+  const handleStart = async () => 
   {
-    navigate(paths.calculate);
+    const questionsFromApi: Question[] | null = await fetchQuestionService.getQuestion(selectedOperations);
+  
+    if (questionsFromApi != null)
+    {
+      setQuestions(questionsFromApi);
+      navigate(paths.calculate);
+    }
   }
-
-  const handleQuestionAnswered = (answeredQuestion: QuestionAnswer): void =>
+    
+  const handleQuestionAnswered = (answeredQuestion: QuestionAnswer) =>
   {
     const newQuestionAnswers = [...questionAnswers, answeredQuestion];
     setQuestionAnswers(newQuestionAnswers);
@@ -66,27 +71,37 @@ function App(): JSX.Element
   {
     navigate(paths.home);
     setQuestionAnswers([]);
-    fetchQuestionService.getQuestion().then((questionsFromApi: Question[] | null) =>
+  }
+
+  const handleOperationClicked = (operation: Operation) =>
+  {
+    setSelectedOperations((prevOperation) =>
     {
-      if (questionsFromApi != null)
-      {
-        setQuestions(questionsFromApi);
-      }
+      const newOperation: Operation = (prevOperation & operation) ? 
+        (prevOperation & ~operation) : (prevOperation | operation);
+        
+      return newOperation ? newOperation : prevOperation;
     });
   }
 
-  const currentIndex: number = questionAnswers.length;
-  const calculationPanelProp : CalculationPanelProp = {
+  const introPanelProps: IntroPanelProps = {
+    selectedOperations: selectedOperations,
+    onOperationClicked: handleOperationClicked,
+    onStart: handleStart
+  };
+  
+  const calculationPanelProp: CalculationPanelProp = {
       questions: questions,
       answers: questionAnswers,
-      currentIndex: currentIndex,
+      currentIndex: questionAnswers.length,
+      selectedOperations: selectedOperations,
       onQuestionAnswered: handleQuestionAnswered
-  }
+  };
 
   return (
     <div className='quick-math-app'>
       <Routes>
-        <Route path="/" element={ <IntroPanel onStart={handleStart}/>} />
+        <Route path="/" element={ <IntroPanel {...introPanelProps}/>} />
         <Route path="/calculate" element={ <CalculationPanel {...calculationPanelProp}/> }/>
         <Route path="/score" element={ <Score answers={questionAnswers} onAgain={handleReset} /> }/>
       </Routes>

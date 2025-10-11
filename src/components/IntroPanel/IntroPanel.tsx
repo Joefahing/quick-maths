@@ -1,18 +1,51 @@
 
-import useKeydown                                       from '../../assets/hooks/useKeydown';
-import styles                                           from './IntroPanel.module.css';
+import { type JSX }                                 from 'react';
+import useKeydown                                   from '../../assets/hooks/useKeydown';
+import styles                                       from './IntroPanel.module.css';
+import multiplyIcon                                 from '../../assets/icons/multiplication_icon.svg';
+import addIcon                                      from '../../assets/icons/add_icon.svg';
+import subtractIcon                                 from '../../assets/icons/subtraction_icon.svg';
+import { Operation }                                from '../../assets/types';
+import { OperatorToggleButton }                     from './OperatorToggleButton/OperatorToggleButton';
 
-export function IntroPanel(prop: {onStart: () => void})
-{
-    useKeydown('Enter', prop.onStart)
+export function IntroPanel({selectedOperations, onStart, onOperationClicked}: IntroPanelProps): JSX.Element
+{    
+    useKeydown('Enter', onStart);
   
     return (
         <>
             <div className={styles.panel}>
                 <h2>Ready to Do Quick Math?</h2>
-                <button onClick={prop.onStart}>Start</button>
+                <button className={styles.start_button} 
+                    onClick={onStart}>Start</button>
                 <div className={styles.instruction}>Press Enter or click Start</div>
+                <div className={styles.operator_container}>
+                    <OperatorToggleButton 
+                        operation={Operation.Add}
+                        selectedOperations={selectedOperations}
+                        onOperatorButtonClick={onOperationClicked}>
+                        <img src={addIcon} width={20} height={20} alt="add" />
+                    </OperatorToggleButton>
+                    <OperatorToggleButton 
+                        operation={Operation.Subtract}
+                        selectedOperations={selectedOperations}
+                        onOperatorButtonClick={onOperationClicked}>
+                        <img src={subtractIcon} width={20} height={20} alt="subtract" />
+                    </OperatorToggleButton>
+                    <OperatorToggleButton
+                        operation={Operation.Multiply}
+                        selectedOperations={selectedOperations}
+                        onOperatorButtonClick={onOperationClicked}>
+                        <img src={multiplyIcon} width={20} height={20} alt="multiplication" />
+                    </OperatorToggleButton>
+                </div>
             </div>
         </>
-    )
+    );
+}
+export interface IntroPanelProps
+{
+    selectedOperations: Operation
+    onStart: () => void,
+    onOperationClicked: (operation: Operation) => void
 }

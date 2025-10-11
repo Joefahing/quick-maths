@@ -1,10 +1,9 @@
-export enum GameStatus
+export enum Operation
 {
-    Ready = 1,
-    Playing = 2,
-    Finished = 3
-};
-
+    Add =                                   0x0001,
+    Subtract =                              0x0002,
+    Multiply =                              0x0004,
+}
 export interface Question
 {
     id: string;

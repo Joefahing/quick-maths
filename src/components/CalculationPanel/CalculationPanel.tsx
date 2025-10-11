@@ -4,18 +4,28 @@ import
     useState, 
     type JSX 
 }                                                   from "react";
-import type 
+import
 { 
-    Question, 
-    QuestionAnswer 
+    type Operation,
+    type Question, 
+    type QuestionAnswer 
 }                                                   from "../../assets/types";
 import MainCalculationQuestion                      from "./MainCalculationQuestion/MainCalculationQuestion";
 import UpcomingQuestion                             from "./UpcomingQuestion/UpcomingQuestion";
 import styles                                       from "./CalculationPanel.module.css";
 import PreviousQuestion                             from "./PreviousQuestion/PreviousQuestion";
 import QuestionService                              from "../../services/QuestionService";
-import { Navigate } from "react-router-dom";
-import paths from "../../routes/routes";
+import { Navigate }                                 from "react-router-dom";
+import paths                                        from "../../routes/routes";
+
+export interface CalculationPanelProp
+{
+    questions: Question[];
+    answers: QuestionAnswer[];
+    currentIndex: number;
+    selectedOperations: Operation
+    onQuestionAnswered: (question: QuestionAnswer) => void
+}
 
 export function CalculationPanel(prop: CalculationPanelProp): JSX.Element
 {
@@ -69,13 +79,5 @@ export function CalculationPanel(prop: CalculationPanelProp): JSX.Element
             </div>
         </div>
         </>
-    )
-}
-
-export interface CalculationPanelProp
-{
-    questions: Question[];
-    answers: QuestionAnswer[];
-    currentIndex: number;
-    onQuestionAnswered: (question: QuestionAnswer) => void
+    );
 }

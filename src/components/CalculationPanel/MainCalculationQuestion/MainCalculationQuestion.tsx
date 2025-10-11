@@ -1,5 +1,11 @@
-import { useEffect, useRef, useState, type JSX } from "react";
-import styles from './MainCalculationQuestion.module.css';
+import 
+{ 
+    useEffect, 
+    useRef, 
+    useState, 
+    type JSX 
+}                                                   from "react";
+import styles                                       from './MainCalculationQuestion.module.css';
 
 function MainCalculationQuestion(prop: {expression: string, onAnswerEntered: (answer: number) => void}): JSX.Element
 {

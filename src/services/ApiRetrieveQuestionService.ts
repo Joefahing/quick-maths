@@ -1,25 +1,25 @@
-import type { Question }                            from "../assets/types";
-import RetrieveQuestionService                      from "./RetrieveQuestionService";
+// import type { Operation, Question }                            from "../assets/types";
+// import RetrieveQuestionService                      from "./RetrieveQuestionService";
 
-class ApiRetrieveQuestionService extends RetrieveQuestionService
-{
-    public async getQuestion(): Promise<Question[] | null> {
+// class ApiRetrieveQuestionService extends RetrieveQuestionService
+// {
+//     public async getQuestion(selectedOperations: Operation): Promise<Question[] | null> {
         
-        const response: Response = await fetch('/mock-data.json');
+//         const response: Response = await fetch('/mock-data.json');
 
-        if (!response.ok)
-        {
-            return null;
-        }
+//         if (!response.ok)
+//         {
+//             return null;
+//         }
         
-        const rawData: ApiQuestionsResponse = await response.json();
+//         const rawData: ApiQuestionsResponse = await response.json();
         
-        return rawData.questions;
-    }
-}
+//         return rawData.questions;
+//     }
+// }
 
-export default ApiRetrieveQuestionService;
+// export default ApiRetrieveQuestionService;
 
-type ApiQuestionsResponse = {
-    questions: Question[]
-}
+// type ApiQuestionsResponse = {
+//     questions: Question[]
+// }

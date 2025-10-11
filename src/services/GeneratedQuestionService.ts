@@ -1,5 +1,5 @@
-import type { Question }                            from "../assets/types";
 import QuestionService                              from "./QuestionService";
+import { Operation, type Question }                 from "../assets/types";
 import RetrieveQuestionService                      from "./RetrieveQuestionService";
 
 class GeneratedQuestionService extends RetrieveQuestionService
@@ -7,22 +7,34 @@ class GeneratedQuestionService extends RetrieveQuestionService
     private maxDigits: number = 2;
     private maxQuestionCount: number = 10;
     private minQuestionCount: number = 7;
-    private operators: string[] = ['+', '-', 'x'];
-
-    public async getQuestion(): Promise<Question[] | null> {
+    private operatorSymbols: Map<Operation, string> = new Map<Operation, string>([
+        [Operation.Add, '+'],
+        [Operation.Subtract, '-'],
+        [Operation.Multiply, 'x']
+    ]);
+    
+    public async getQuestion(selectedOperations: Operation): Promise<Question[] | null> {
         
         const questionCount = this.randomNumber(this.minQuestionCount, this.maxQuestionCount);
         const questions: Question[] = [];
+        const operations: Operation[] = Array.from(this.operatorSymbols.keys()).filter(op => (selectedOperations & op) !== 0);
 
-        for (let i = 1; i <= questionCount; i++)
+        let id: number = 0;
+        while(questions.length < questionCount)
         {
-            const multiplier1: number = Math.pow(10, this.randomNumber(1, this.maxDigits));
-            const multiplier2: number = Math.pow(10, this.randomNumber(1, this.maxDigits));
+            id++;
+            const multiplier1: number = 10 ** this.randomNumber(1, this.maxDigits);
+            const multiplier2: number = 10 ** this.randomNumber(1, this.maxDigits);
             const num1: number = Math.floor((multiplier1 * Math.random()));
             const num2: number = Math.floor((multiplier2 * Math.random()));
-            const operator: string = this.operators[this.randomNumber(0, 1)];
+            
+            const randomOperation: Operation = operations[this.randomNumber(0, operations.length - 1)];
+            const operator: string | undefined = this.operatorSymbols.get(randomOperation);
 
-            questions.push(QuestionService.getQuestion(i.toString(), num1, num2, operator));
+            if (operator != undefined)
+            {
+                questions.push(QuestionService.getQuestion(id.toString(), num1, num2, operator));
+            }
         }
 
         return questions;

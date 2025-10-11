@@ -14,7 +14,6 @@ class QuestionService
     {
         expression = expression.replaceAll(' ', '');
 
-
         const match = expression.match(/^(\d+)([+\-x/])(\d+)$/);
         
         if (!match) {

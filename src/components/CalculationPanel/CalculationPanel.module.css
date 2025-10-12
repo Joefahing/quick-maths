@@ -1,15 +1,13 @@
 /* Mobile first under 768px */
-.panel
-{
+.panel {
   display: grid;
   width: min(95%, 50rem);
   grid-template-columns: 1fr;
-  grid-template-areas: "timer" "calculation";
+  grid-template-areas: 'timer' 'calculation';
   gap: 2rem;
   transform: translateY(-15%);
- 
-  .calculation_container
-  {
+
+  .calculation_container {
     grid-area: calculation;
     display: flex;
     flex-direction: column;
@@ -17,14 +15,13 @@
     gap: 2rem;
   }
 
-  .timer
-  {
+  .timer {
     grid-area: timer;
     display: flex;
     flex-direction: row;
     justify-content: center;
     gap: 0.5rem;
-    
+
     font-weight: 500;
 
     .time {

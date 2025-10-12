@@ -1,5 +1,4 @@
-.operator_button
-{
+.operator_button {
   width: 2rem;
   height: 2rem;
   display: flex;
@@ -7,16 +6,18 @@
   justify-content: center;
   align-items: center;
   border-width: 1px;
-  transition: border-width 150ms ease, border-color 150ms ease;
+  transition:
+    border-width 150ms ease,
+    border-color 150ms ease;
   padding: 0;
 
   &:focus,
   &:focus-visible {
-    outline: none
+    outline: none;
   }
 
-  &.selected
-  {
-    border-width: 2px; border-color: #4ade80;
+  &.selected {
+    border-width: 2px;
+    border-color: #4ade80;
   }
 }

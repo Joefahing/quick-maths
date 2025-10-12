@@ -1,5 +1,4 @@
-#root
-{
+#root {
   min-height: 100svh;
   display: flex;
   flex-direction: column;
@@ -7,18 +6,16 @@
   align-items: center;
 }
 
-button
-{
+button {
   width: 200px;
 }
 
-.quick-math-app
-{
+.quick-math-app {
   height: 100%;
   width: 100%;
   padding: 0.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center; 
+  justify-content: center;
 }

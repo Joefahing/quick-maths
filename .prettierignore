@@ -1,0 +1,5 @@
+## Ignore Config Files:
+README.md
+tsconfig.json
+vercel.json
+vite.config.ts

@@ -1,26 +1,22 @@
-.panel
-{
+.panel {
   display: flex;
   flex-direction: column;
   width: fit-content;
   align-items: center;
   gap: 1.5rem;
-  
-  .instruction
-  {
+
+  .instruction {
     margin-top: 0.5rem;
   }
 
-  .operator_container
-  {
+  .operator_container {
     display: flex;
     flex-direction: row;
-    justify-content: space-between; 
+    justify-content: space-between;
     gap: 0.6rem;
   }
-  
-  .start_button
-  {
+
+  .start_button {
     padding: 0.6em 1.2em;
   }
 }

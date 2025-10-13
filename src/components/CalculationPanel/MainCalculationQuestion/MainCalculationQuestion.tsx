@@ -40,7 +40,7 @@ function MainCalculationQuestion(prop: { expression: string; onAnswerEntered: (a
           className={styles.answer_input}
           type="text"
           pattern="[0-9]*"
-          inputMode="numeric"
+          inputMode="text"
           maxLength={8}
           ref={inputRef}
           value={inputValue}

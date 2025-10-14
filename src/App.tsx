@@ -9,16 +9,16 @@ import { Score } from './components/Score/Score';
 import paths from './routes/routes';
 import GeneratedQuestionService from './services/GeneratedQuestionService';
 import type FetchQuestionService from './services/RetrieveQuestionService';
+import usePersistentState from './shared/hooks/usePersistentState';
 
 import './App.css';
 
-// TODO: Investigate context api
 // TODO: Refactor this component to reduce states and handlers
 
 function App(): JSX.Element {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [questionAnswers, setQuestionAnswers] = useState<QuestionAnswer[]>([]);
-  const [selectedOperations, setSelectedOperations] = useState<Operation>(Operation.Add);
+  const [selectedOperations, setSelectedOperations] = usePersistentState<Operation>('operation', Operation.Add);
 
   const navigate: NavigateFunction = useNavigate();
   const fetchQuestionService: FetchQuestionService = useRef(new GeneratedQuestionService()).current;

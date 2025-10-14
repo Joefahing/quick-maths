@@ -3,11 +3,11 @@ import { Navigate } from 'react-router-dom';
 import { type JSX } from 'react';
 import classNames from 'classnames/bind';
 
-import useKeydown from '../../assets/hooks/useKeydown';
 import checkIcon from '../../assets/icons/check_icon.svg';
 import errorIcon from '../../assets/icons/error_icon.svg';
 import type { QuestionAnswer } from '../../assets/types';
 import paths from '../../routes/routes';
+import useKeydown from '../../shared/hooks/useKeydown';
 
 import styles from './Scores.module.css';
 

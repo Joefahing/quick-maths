@@ -1,10 +1,10 @@
 import { type JSX } from 'react';
 
-import useKeydown from '../../assets/hooks/useKeydown';
 import addIcon from '../../assets/icons/add_icon.svg';
 import multiplyIcon from '../../assets/icons/multiplication_icon.svg';
 import subtractIcon from '../../assets/icons/subtraction_icon.svg';
 import { Operation } from '../../assets/types';
+import useKeydown from '../../shared/hooks/useKeydown';
 
 import { OperatorToggleButton } from './OperatorToggleButton/OperatorToggleButton';
 

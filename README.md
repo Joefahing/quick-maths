@@ -22,5 +22,5 @@ Quick Math is a browser-based arithmetic quiz that lets you choose operations (a
 3) Build for production: `npm run build`
 
 ## Upcoming Features
-- [] User-generated question sets for tailored practice
-- [] AI-assisted feedback and tips based on performance
+- [ ] User-generated question sets for tailored practice
+- [ ] AI-assisted feedback and tips based on performance

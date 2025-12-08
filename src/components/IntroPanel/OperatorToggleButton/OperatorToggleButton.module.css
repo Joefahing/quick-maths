@@ -1,23 +1,23 @@
 .operator_button {
-  width: 2rem;
-  height: 2rem;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  border-width: 1px;
-  transition:
-    border-width 150ms ease,
-    border-color 150ms ease;
-  padding: 0;
+	width: 2rem;
+	height: 2rem;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	border-width: 1px;
+	transition:
+		border-width 150ms ease,
+		border-color 150ms ease;
+	padding: 0;
 
-  &:focus,
-  &:focus-visible {
-    outline: none;
-  }
+	&:focus,
+	&:focus-visible {
+		outline: none;
+	}
 
-  &.selected {
-    border-width: 2px;
-    border-color: #4ade80;
-  }
+	&.selected {
+		border-width: 2px;
+		border-color: #4ade80;
+	}
 }

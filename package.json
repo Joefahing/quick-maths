@@ -1,36 +1,45 @@
 {
-  "name": "quickmath",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
-    "lint": "eslint .",
-    "format": "npx prettier . --write",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "classnames": "^2.5.1",
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1",
-    "react-router-dom": "^7.9.2"
-  },
-  "devDependencies": {
-    "@eslint/js": "^9.33.0",
-    "@types/react": "^19.1.10",
-    "@types/react-dom": "^19.1.7",
-    "@vitejs/plugin-react-swc": "^4.0.0",
-    "eslint": "^9.33.0",
-    "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-prettier": "^5.5.4",
-    "eslint-plugin-react-hooks": "^5.2.0",
-    "eslint-plugin-react-refresh": "^0.4.20",
-    "eslint-plugin-simple-import-sort": "^12.1.1",
-    "globals": "^16.3.0",
-    "prettier": "^3.6.2",
-    "typescript": "~5.8.3",
-    "typescript-eslint": "^8.39.1",
-    "vite": "^7.1.2"
-  }
+	"name": "quickmath",
+	"private": true,
+	"version": "0.0.0",
+	"type": "module",
+	"scripts": {
+		"dev": "vite",
+		"build": "tsc -b && vite build",
+		"lint": "eslint .",
+		"format": "npx prettier . --write",
+		"preview": "vite preview",
+		"test": "vitest",
+		"test:run": "vitest run",
+		"test:ui": "vitest --ui"
+	},
+	"dependencies": {
+		"@vitest/ui": "^4.0.15",
+		"classnames": "^2.5.1",
+		"react": "^19.1.1",
+		"react-dom": "^19.1.1",
+		"react-router-dom": "^7.9.2"
+	},
+	"devDependencies": {
+		"@eslint/js": "^9.33.0",
+		"@testing-library/jest-dom": "^6.9.1",
+		"@testing-library/react": "^16.3.0",
+		"@testing-library/user-event": "^14.6.1",
+		"@types/react": "^19.1.10",
+		"@types/react-dom": "^19.1.7",
+		"@vitejs/plugin-react-swc": "^4.0.0",
+		"eslint": "^9.33.0",
+		"eslint-config-prettier": "^10.1.8",
+		"eslint-plugin-prettier": "^5.5.4",
+		"eslint-plugin-react-hooks": "^5.2.0",
+		"eslint-plugin-react-refresh": "^0.4.20",
+		"eslint-plugin-simple-import-sort": "^12.1.1",
+		"globals": "^16.3.0",
+		"jsdom": "^27.2.0",
+		"prettier": "^3.6.2",
+		"typescript": "~5.8.3",
+		"typescript-eslint": "^8.39.1",
+		"vite": "^7.1.2",
+		"vitest": "^4.0.15"
+	}
 }

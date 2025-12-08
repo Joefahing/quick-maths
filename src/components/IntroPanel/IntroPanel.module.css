@@ -1,22 +1,22 @@
 .panel {
-  display: flex;
-  flex-direction: column;
-  width: fit-content;
-  align-items: center;
-  gap: 1.5rem;
+	display: flex;
+	flex-direction: column;
+	width: fit-content;
+	align-items: center;
+	gap: 1.5rem;
 
-  .instruction {
-    margin-top: 0.5rem;
-  }
+	.instruction {
+		margin-top: 0.5rem;
+	}
 
-  .operator_container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    gap: 0.6rem;
-  }
+	.operator_container {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		gap: 0.6rem;
+	}
 
-  .start_button {
-    padding: 0.6em 1.2em;
-  }
+	.start_button {
+		padding: 0.6em 1.2em;
+	}
 }

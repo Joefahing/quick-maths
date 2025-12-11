@@ -7,11 +7,14 @@ import paths from '../../routes/routes';
 import QuestionService from '../../services/QuestionService';
 
 import MainCalculationQuestion from './MainCalculationQuestion/MainCalculationQuestion';
+import PreviousQuestion from './PreviousQuestion/PreviousQuestion';
+import UpcomingQuestion from './UpcomingQuestion/UpcomingQuestion';
 
 import styles from './CalculationPanel.module.css';
 
 export interface CalculationPanelProp {
 	questions: Question[];
+	answers: QuestionAnswer[];
 	currentIndex: number;
 	selectedOperations: Operation;
 	onQuestionAnswered: (question: QuestionAnswer) => void;
@@ -19,10 +22,11 @@ export interface CalculationPanelProp {
 
 export function CalculationPanel(prop: CalculationPanelProp): JSX.Element {
 	const [seconds, setSeconds] = useState<number>(0);
-	const { questions, currentIndex, onQuestionAnswered } = prop;
+	const { questions, answers, currentIndex, onQuestionAnswered } = prop;
+	const lastAnswer: QuestionAnswer | undefined = answers[answers.length - 1] ?? undefined;
+	const nextQuestion: Question | undefined = questions[currentIndex + 1] ?? undefined;
 	const currentQuestion: Question = questions[currentIndex];
 
-	//TODO: Move timer to custom hook
 	useEffect(() => {
 		const interval: number = setInterval(() => {
 			setSeconds((prev) => prev + 1);
@@ -53,23 +57,13 @@ export function CalculationPanel(prop: CalculationPanelProp): JSX.Element {
 		<>
 			<div className={styles.panel}>
 				<section className={styles.calculation_container}>
-					<div className={styles.timer}>
-						<p className={styles.time}>Time: {seconds} Seconds</p>
-					</div>
+					{lastAnswer && <PreviousQuestion answer={lastAnswer} />}
 					<MainCalculationQuestion expression={currentQuestion.expression} onAnswerEntered={handleQuestionEntered} />
-					<div className={styles.progress_bar}>
-						{questions.map((_, index) => {
-							const isLast: boolean = index === questions.length - 1;
-              
-							return (
-								<div key={`question-${index}`} className={styles.question_container}>
-									<div className={styles.question}>{index + 1}</div>
-									{!isLast && <div className={styles.connector}></div>}
-								</div>
-							);
-						})}
-					</div>
+					<UpcomingQuestion expression={nextQuestion?.expression} />
 				</section>
+				<div className={styles.timer}>
+					<p className={styles.time}>Time: {seconds} Seconds</p>
+				</div>
 			</div>
 		</>
 	);

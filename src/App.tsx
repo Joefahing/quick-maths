@@ -63,6 +63,7 @@ function App(): JSX.Element {
 
 	const calculationPanelProp: CalculationPanelProp = {
 		questions: questions,
+		answers: questionAnswers,
 		currentIndex: questionAnswers.length,
 		selectedOperations: selectedOperations,
 		onQuestionAnswered: handleQuestionAnswered

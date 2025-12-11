@@ -7,7 +7,6 @@ import styles from './PreviousQuestion.module.css';
 
 const cx = classNames.bind(styles);
 
-// TODO: To be removed
 function PreviousQuestion(prop: { answer: QuestionAnswer }): JSX.Element {
 	const { question, answer, isCorrect } = prop.answer;
 

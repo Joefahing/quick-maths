@@ -7,7 +7,6 @@ import { Operation } from '../../assets/types';
 import { IntroPanel } from './IntroPanel';
 
 describe('Intro Panel', () => {
-	
 	it('Calls onStart when start button is clicked', async () => {
 		const user: UserEvent = userEvent.setup();
 		const handleStart: Mock = vi.fn();

@@ -12,7 +12,6 @@ import styles from './CalculationPanel.module.css';
 
 export interface CalculationPanelProp {
 	questions: Question[];
-	answers: QuestionAnswer[];
 	currentIndex: number;
 	selectedOperations: Operation;
 	onQuestionAnswered: (question: QuestionAnswer) => void;
@@ -20,7 +19,7 @@ export interface CalculationPanelProp {
 
 export function CalculationPanel(prop: CalculationPanelProp): JSX.Element {
 	const [seconds, setSeconds] = useState<number>(0);
-	const { questions, answers, currentIndex, onQuestionAnswered } = prop;
+	const { questions, currentIndex, onQuestionAnswered } = prop;
 	const currentQuestion: Question = questions[currentIndex];
 
 	//TODO: Move timer to custom hook

@@ -7,8 +7,6 @@ import paths from '../../routes/routes';
 import QuestionService from '../../services/QuestionService';
 
 import MainCalculationQuestion from './MainCalculationQuestion/MainCalculationQuestion';
-import PreviousQuestion from './PreviousQuestion/PreviousQuestion';
-import UpcomingQuestion from './UpcomingQuestion/UpcomingQuestion';
 
 import styles from './CalculationPanel.module.css';
 
@@ -23,10 +21,9 @@ export interface CalculationPanelProp {
 export function CalculationPanel(prop: CalculationPanelProp): JSX.Element {
 	const [seconds, setSeconds] = useState<number>(0);
 	const { questions, answers, currentIndex, onQuestionAnswered } = prop;
-	const lastAnswer: QuestionAnswer | undefined = answers[answers.length - 1] ?? undefined;
-	const nextQuestion: Question | undefined = questions[currentIndex + 1] ?? undefined;
 	const currentQuestion: Question = questions[currentIndex];
 
+	//TODO: Move timer to custom hook
 	useEffect(() => {
 		const interval: number = setInterval(() => {
 			setSeconds((prev) => prev + 1);
@@ -57,13 +54,23 @@ export function CalculationPanel(prop: CalculationPanelProp): JSX.Element {
 		<>
 			<div className={styles.panel}>
 				<section className={styles.calculation_container}>
-					{lastAnswer && <PreviousQuestion answer={lastAnswer} />}
+					<div className={styles.timer}>
+						<p className={styles.time}>Time: {seconds} Seconds</p>
+					</div>
 					<MainCalculationQuestion expression={currentQuestion.expression} onAnswerEntered={handleQuestionEntered} />
-					<UpcomingQuestion expression={nextQuestion?.expression} />
+					<div className={styles.progress_bar}>
+						{questions.map((_, index) => {
+							const isLast: boolean = index === questions.length - 1;
+              
+							return (
+								<div key={`question-${index}`} className={styles.question_container}>
+									<div className={styles.question}>{index + 1}</div>
+									{!isLast && <div className={styles.connector}></div>}
+								</div>
+							);
+						})}
+					</div>
 				</section>
-				<div className={styles.timer}>
-					<p className={styles.time}>Time: {seconds} Seconds</p>
-				</div>
 			</div>
 		</>
 	);

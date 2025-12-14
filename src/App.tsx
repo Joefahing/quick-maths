@@ -27,6 +27,7 @@ function App(): JSX.Element {
 		const questionsFromApi: Question[] | null = await fetchQuestionService.getQuestion(selectedOperations);
 
 		if (questionsFromApi != null) {
+			setQuestionAnswers([]);
 			setQuestions(questionsFromApi);
 			navigate(paths.calculate);
 		}
@@ -35,13 +36,9 @@ function App(): JSX.Element {
 	const handleQuestionAnswered = (answeredQuestion: QuestionAnswer) => {
 		const newQuestionAnswers = [...questionAnswers, answeredQuestion];
 		setQuestionAnswers(newQuestionAnswers);
-
-		if (newQuestionAnswers.length === questions.length) {
-			navigate(paths.score);
-		}
 	};
 
-	const handleReset = (): void => {
+	const handleReset = () => {
 		navigate(paths.home);
 		setQuestionAnswers([]);
 	};
@@ -63,8 +60,8 @@ function App(): JSX.Element {
 
 	const calculationPanelProp: CalculationPanelProp = {
 		questions: questions,
-		currentIndex: questionAnswers.length,
-		selectedOperations: selectedOperations,
+		answers: questionAnswers,
+		currentQuestionIndex: questionAnswers.length,
 		onQuestionAnswered: handleQuestionAnswered
 	};
 

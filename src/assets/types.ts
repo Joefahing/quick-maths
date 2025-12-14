@@ -14,3 +14,5 @@ export interface QuestionAnswer {
 	isCorrect: boolean;
 	time: number;
 }
+
+export type QuestionStatus = 'toBeComplete' | 'inProgress' | 'incorrect' | 'correct';

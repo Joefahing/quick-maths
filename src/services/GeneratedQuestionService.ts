@@ -5,8 +5,8 @@ import RetrieveQuestionService from './RetrieveQuestionService';
 
 class GeneratedQuestionService extends RetrieveQuestionService {
 	private maxDigits: number = 2;
-	private maxQuestionCount: number = 10;
-	private minQuestionCount: number = 7;
+	private maxQuestionCount: number = 9;
+	private minQuestionCount: number = 6;
 	private operatorSymbols: Map<Operation, string> = new Map<Operation, string>([
 		[Operation.Add, '+'],
 		[Operation.Subtract, '-'],

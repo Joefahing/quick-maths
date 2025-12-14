@@ -1,0 +1,9 @@
+.progress_bar {
+	display: flex;
+	position: relative;
+	place-content: center;
+	place-items: center;
+	padding: 0 0.75rem;
+	margin-top: 1rem;
+	width: 100%;
+}

@@ -1,0 +1,29 @@
+.question_container {
+	display: flex;
+	align-items: center;
+
+	.question {
+		display: flex;
+		place-items: center;
+		place-content: center;
+		width: 1.8rem;
+		height: 1.8rem;
+		border-radius: 50%;
+		border: 2px solid #e6e6e6;
+		background: #121212;
+		font-size: 0.85rem;
+		font-weight: 700;
+
+		&.in_progress {
+			border-color: #e6e6e6;
+			background-color: #646cff;
+			color: white;
+		}
+	}
+
+	.connector {
+		height: 2px;
+		background-color: #e6e6e6;
+		min-width: 1.3rem;
+	}
+}

@@ -19,7 +19,7 @@ export function QuestionIndicator({ index, isLast, questionStatus }: QuestionInd
 	let indicatorContent: JSX.Element;
 
 	if (questionStatus === 'inProgress' || questionStatus === 'toBeComplete') {
-		indicatorContent = <span>{index}</span>;
+		indicatorContent = <span>{index + 1}</span>;
 	} else if (questionStatus === 'correct') {
 		indicatorContent = <img src={correctIcon} width={24} height={24} alt="Correct Question" />;
 	} else {

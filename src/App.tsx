@@ -65,7 +65,7 @@ function App(): JSX.Element {
 	};
 
 	return (
-		<div className="quick-math-app">
+		<div className="quick_math_app">
 			<Routes>
 				<Route path="/" element={<IntroPanel {...introPanelProps} />} />
 				<Route path="/calculate" element={<CalculationPanel {...calculationPanelProp} />} />

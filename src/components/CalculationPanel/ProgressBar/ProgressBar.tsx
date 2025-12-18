@@ -1,17 +1,18 @@
-import type { JSX } from 'react';
+import { type JSX, useContext } from 'react';
 
 import type { Question, QuestionAnswer, QuestionStatus } from '../../../assets/types';
+import { QuestionsContext, type QuestionsContextValue } from '../../../shared/context/QuestionContext';
 import { QuestionIndicator, type QuestionIndicatorProps } from '../QuestionIndicator/QuestionIndicator';
 
 import styles from './ProgressBar.module.css';
 
 export interface ProgressBarProps {
-	questions: Question[];
 	answers: QuestionAnswer[];
-	currentQuestionIndex: number;
 }
 
-export function ProgressBar({ questions, answers, currentQuestionIndex }: ProgressBarProps): JSX.Element {
+export function ProgressBar({ answers }: ProgressBarProps): JSX.Element {
+	const { questions, currentQuestionIndex }: QuestionsContextValue = useContext(QuestionsContext);
+
 	const questionIndicators: JSX.Element[] = questions.map((_: Question, index: number) => {
 		const indicatorProp: QuestionIndicatorProps = {
 			index,

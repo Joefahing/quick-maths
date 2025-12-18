@@ -17,7 +17,7 @@ import './App.css';
 
 function App(): JSX.Element {
 	const [questions, setQuestions] = useState<Question[]>([]);
-	const [questionAnswers, setQuestionAnswers] = useState<QuestionAnswer[]>([]);
+	const [answers, setAnswers] = useState<QuestionAnswer[]>([]);
 	const [selectedOperations, setSelectedOperations] = usePersistentState<Operation>('operation', Operation.Add);
 
 	const navigate: NavigateFunction = useNavigate();
@@ -27,20 +27,20 @@ function App(): JSX.Element {
 		const questionsFromApi: Question[] | null = await fetchQuestionService.getQuestion(selectedOperations);
 
 		if (questionsFromApi != null) {
-			setQuestionAnswers([]);
+			setAnswers([]);
 			setQuestions(questionsFromApi);
 			navigate(paths.calculate);
 		}
 	};
 
 	const handleQuestionAnswered = (answeredQuestion: QuestionAnswer) => {
-		const newQuestionAnswers = [...questionAnswers, answeredQuestion];
-		setQuestionAnswers(newQuestionAnswers);
+		const newanswers = [...answers, answeredQuestion];
+		setAnswers(newanswers);
 	};
 
 	const handleReset = () => {
 		navigate(paths.home);
-		setQuestionAnswers([]);
+		setAnswers([]);
 	};
 
 	const handleOperationClicked = (operation: Operation) => {
@@ -59,18 +59,17 @@ function App(): JSX.Element {
 	};
 
 	const calculationPanelProp: CalculationPanelProp = {
+		answers: answers,
 		questions: questions,
-		answers: questionAnswers,
-		currentQuestionIndex: questionAnswers.length,
 		onQuestionAnswered: handleQuestionAnswered
 	};
 
 	return (
-		<div className="quick-math-app">
+		<div className="quick_math_app">
 			<Routes>
 				<Route path="/" element={<IntroPanel {...introPanelProps} />} />
 				<Route path="/calculate" element={<CalculationPanel {...calculationPanelProp} />} />
-				<Route path="/score" element={<Score answers={questionAnswers} onAgain={handleReset} />} />
+				<Route path="/score" element={<Score answers={answers} onAgain={handleReset} />} />
 			</Routes>
 		</div>
 	);

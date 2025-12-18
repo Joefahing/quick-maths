@@ -5,22 +5,22 @@ import { type JSX, useEffect, useState } from 'react';
 import { type Question, type QuestionAnswer } from '../../assets/types';
 import paths from '../../routes/routes';
 import QuestionService from '../../services/QuestionService';
+import { QuestionsContext, type QuestionsContextValue } from '../../shared/context/QuestionContext';
 
 import MainCalculationQuestion from './MainCalculationQuestion/MainCalculationQuestion';
-import { ProgressBar, type ProgressBarProps } from './ProgressBar/ProgressBar';
+import { ProgressBar } from './ProgressBar/ProgressBar';
 
 import styles from './CalculationPanel.module.css';
 
 export interface CalculationPanelProp {
-	questions: Question[];
 	answers: QuestionAnswer[];
-	currentQuestionIndex: number;
+	questions: Question[];
 	onQuestionAnswered: (question: QuestionAnswer) => void;
 }
 
-export function CalculationPanel(prop: CalculationPanelProp): JSX.Element {
+export function CalculationPanel({answers, questions, onQuestionAnswered}: CalculationPanelProp): JSX.Element {
 	const [seconds, setSeconds] = useState<number>(0);
-	const { questions, answers, currentQuestionIndex, onQuestionAnswered } = prop;
+	const currentQuestionIndex: number = answers.length;
 
 	//TODO: Move timer to custom hook
 	useEffect(() => {
@@ -51,10 +51,9 @@ export function CalculationPanel(prop: CalculationPanelProp): JSX.Element {
 		onQuestionAnswered(result);
 	}
 
-	const progressBarProps: ProgressBarProps = {
-		questions,
-		answers,
-		currentQuestionIndex
+	const questionsContextValue: QuestionsContextValue = {
+		questions: questions,
+		currentQuestionIndex: currentQuestionIndex
 	};
 
 	return (
@@ -64,8 +63,10 @@ export function CalculationPanel(prop: CalculationPanelProp): JSX.Element {
 					<div className={styles.timer}>
 						<p className={styles.time}>Time: {seconds} Seconds</p>
 					</div>
-					<MainCalculationQuestion expression={currentQuestion.expression} onAnswerEntered={handleQuestionEntered} />
-					<ProgressBar {...progressBarProps} />
+					<QuestionsContext.Provider value={questionsContextValue}>
+						<MainCalculationQuestion expression={currentQuestion.expression} onAnswerEntered={handleQuestionEntered} />
+						<ProgressBar answers={answers} />
+					</QuestionsContext.Provider>
 				</section>
 			</div>
 		</>

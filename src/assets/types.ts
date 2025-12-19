@@ -16,3 +16,17 @@ export interface QuestionAnswer {
 }
 
 export type QuestionStatus = 'toBeComplete' | 'inProgress' | 'incorrect' | 'correct';
+
+export interface GameSessionReducer {
+	reducer: (state: GameSessionState, action: GameAction) => GameSessionState;
+	initialState: GameSessionState;
+}
+export interface GameSessionState {
+	questions: Question[];
+	answers: QuestionAnswer[];
+}
+
+export type GameAction =
+	| { type: 'init'; questions: Question[] }
+	| { type: 'reset' }
+	| { type: 'answer_added'; answer: QuestionAnswer };

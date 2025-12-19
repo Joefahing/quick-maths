@@ -18,7 +18,7 @@ export interface CalculationPanelProp {
 	onQuestionAnswered: (question: QuestionAnswer) => void;
 }
 
-export function CalculationPanel({answers, questions, onQuestionAnswered}: CalculationPanelProp): JSX.Element {
+export function CalculationPanel({ answers, questions, onQuestionAnswered }: CalculationPanelProp): JSX.Element {
 	const [seconds, setSeconds] = useState<number>(0);
 	const currentQuestionIndex: number = answers.length;
 
@@ -57,18 +57,16 @@ export function CalculationPanel({answers, questions, onQuestionAnswered}: Calcu
 	};
 
 	return (
-		<>
-			<div className={styles.panel}>
-				<section className={styles.calculation_container}>
-					<div className={styles.timer}>
-						<p className={styles.time}>Time: {seconds} Seconds</p>
-					</div>
-					<QuestionsContext.Provider value={questionsContextValue}>
-						<MainCalculationQuestion expression={currentQuestion.expression} onAnswerEntered={handleQuestionEntered} />
-						<ProgressBar answers={answers} />
-					</QuestionsContext.Provider>
-				</section>
-			</div>
-		</>
+		<div className={styles.panel}>
+			<section className={styles.calculation_container}>
+				<div className={styles.timer}>
+					<p className={styles.time}>Time: {seconds} Seconds</p>
+				</div>
+				<QuestionsContext.Provider value={questionsContextValue}>
+					<MainCalculationQuestion expression={currentQuestion.expression} onAnswerEntered={handleQuestionEntered} />
+					<ProgressBar answers={answers} />
+				</QuestionsContext.Provider>
+			</section>
+		</div>
 	);
 }

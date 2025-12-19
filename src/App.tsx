@@ -1,6 +1,6 @@
 import { type NavigateFunction, Route, Routes, useNavigate } from 'react-router-dom';
 
-import { type JSX, useRef, useState } from 'react';
+import { type JSX, useReducer, useRef } from 'react';
 
 import { Operation, type Question, type QuestionAnswer } from './assets/types';
 import { CalculationPanel, type CalculationPanelProp } from './components/CalculationPanel/CalculationPanel';
@@ -10,37 +10,34 @@ import paths from './routes/routes';
 import GeneratedQuestionService from './services/GeneratedQuestionService';
 import type FetchQuestionService from './services/RetrieveQuestionService';
 import usePersistentState from './shared/hooks/usePersistentState';
+import { gameSessionReducer } from './shared/reducers/GameSessionReducer';
 
 import './App.css';
 
-// TODO: Refactor this component to reduce states and handlers
-
 function App(): JSX.Element {
-	const [questions, setQuestions] = useState<Question[]>([]);
-	const [answers, setAnswers] = useState<QuestionAnswer[]>([]);
 	const [selectedOperations, setSelectedOperations] = usePersistentState<Operation>('operation', Operation.Add);
-
+	const [gameSession, dispatch] = useReducer(gameSessionReducer.reducer, gameSessionReducer.initialState);
 	const navigate: NavigateFunction = useNavigate();
+
+	const { answers, questions } = gameSession;
 	const fetchQuestionService: FetchQuestionService = useRef(new GeneratedQuestionService()).current;
 
 	const handleStart = async () => {
 		const questionsFromApi: Question[] | null = await fetchQuestionService.getQuestion(selectedOperations);
 
 		if (questionsFromApi != null) {
-			setAnswers([]);
-			setQuestions(questionsFromApi);
+			dispatch({ type: 'init', questions: questionsFromApi });
 			navigate(paths.calculate);
 		}
 	};
 
-	const handleQuestionAnswered = (answeredQuestion: QuestionAnswer) => {
-		const newanswers = [...answers, answeredQuestion];
-		setAnswers(newanswers);
+	const handleQuestionAnswered = (answer: QuestionAnswer) => {
+		dispatch({ type: 'answer_added', answer });
 	};
 
 	const handleReset = () => {
+		dispatch({ type: 'reset' });
 		navigate(paths.home);
-		setAnswers([]);
 	};
 
 	const handleOperationClicked = (operation: Operation) => {

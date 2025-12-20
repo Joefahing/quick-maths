@@ -1,6 +1,6 @@
 import { Navigate } from 'react-router-dom';
 
-import { type JSX, type RefObject, useCallback, useRef } from 'react';
+import { type JSX, useCallback, useRef } from 'react';
 
 import { type Question, type QuestionAnswer } from '../../assets/types';
 import paths from '../../routes/routes';
@@ -20,9 +20,9 @@ export interface CalculationPanelProp {
 }
 
 export function CalculationPanel({ answers, questions, onQuestionAnswered }: CalculationPanelProp): JSX.Element {
-	const seconds: RefObject<number> = useRef(0);
+	const secondsRef = useRef(0);
 	const handleTick = useCallback((nextSecond: number) => {
-		seconds.current = nextSecond;
+		secondsRef.current = nextSecond;
 	}, []);
 
 	const currentQuestionIndex: number = answers.length;
@@ -38,7 +38,7 @@ export function CalculationPanel({ answers, questions, onQuestionAnswered }: Cal
 			question: currentQuestion,
 			isCorrect: QuestionService.getAnswer(currentQuestion.expression) === answer,
 			answer: answer,
-			time: seconds.current
+			time: secondsRef.current
 		};
 
 		onQuestionAnswered(result);

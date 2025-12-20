@@ -1,0 +1,12 @@
+.timer {
+	grid-area: timer;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	gap: 0.5rem;
+	font-weight: 500;
+
+	.time {
+		font-variant-numeric: tabular-nums;
+	}
+}

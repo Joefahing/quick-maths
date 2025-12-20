@@ -1,6 +1,6 @@
 import { Navigate } from 'react-router-dom';
 
-import { type JSX, useEffect, useState } from 'react';
+import { type JSX, type RefObject, useCallback, useRef } from 'react';
 
 import { type Question, type QuestionAnswer } from '../../assets/types';
 import paths from '../../routes/routes';
@@ -9,6 +9,7 @@ import { QuestionsContext, type QuestionsContextValue } from '../../shared/conte
 
 import MainCalculationQuestion from './MainCalculationQuestion/MainCalculationQuestion';
 import { ProgressBar } from './ProgressBar/ProgressBar';
+import { Timer } from './Timer/Timer';
 
 import styles from './CalculationPanel.module.css';
 
@@ -19,20 +20,12 @@ export interface CalculationPanelProp {
 }
 
 export function CalculationPanel({ answers, questions, onQuestionAnswered }: CalculationPanelProp): JSX.Element {
-	const [seconds, setSeconds] = useState<number>(0);
-	const currentQuestionIndex: number = answers.length;
-
-	//TODO: Move timer to custom hook
-	useEffect(() => {
-		const interval: number = setInterval(() => {
-			setSeconds((prev) => prev + 1);
-		}, 1000);
-
-		return () => {
-			clearInterval(interval);
-			setSeconds(0);
-		};
+	const seconds: RefObject<number> = useRef(0);
+	const handleTick = useCallback((nextSecond: number) => {
+		seconds.current = nextSecond;
 	}, []);
+
+	const currentQuestionIndex: number = answers.length;
 
 	if (currentQuestionIndex >= questions.length) {
 		return <Navigate to={paths.score} replace />;
@@ -45,7 +38,7 @@ export function CalculationPanel({ answers, questions, onQuestionAnswered }: Cal
 			question: currentQuestion,
 			isCorrect: QuestionService.getAnswer(currentQuestion.expression) === answer,
 			answer: answer,
-			time: seconds
+			time: seconds.current
 		};
 
 		onQuestionAnswered(result);
@@ -59,9 +52,7 @@ export function CalculationPanel({ answers, questions, onQuestionAnswered }: Cal
 	return (
 		<div className={styles.panel}>
 			<section className={styles.calculation_container}>
-				<div className={styles.timer}>
-					<p className={styles.time}>Time: {seconds} Seconds</p>
-				</div>
+				<Timer onTick={handleTick} />
 				<QuestionsContext.Provider value={questionsContextValue}>
 					<MainCalculationQuestion expression={currentQuestion.expression} onAnswerEntered={handleQuestionEntered} />
 					<ProgressBar answers={answers} />

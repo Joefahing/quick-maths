@@ -9,21 +9,21 @@
 		width: 1.8rem;
 		height: 1.8rem;
 		border-radius: 50%;
-		border: 2px solid #e6e6e6;
-		background: #121212;
-		font-size: 0.85rem;
+		border: var(--border-md) solid var(--color-border);
+		background: var(--color-background);
+		font-size: var(--font-size-sx);
 		font-weight: 700;
 
 		&.in_progress {
-			border-color: #e6e6e6;
-			background-color: #646cff;
-			color: white;
+			border-color: var(--color-border);
+			background-color: var(--color-selected);
+			color: var(--color-text-primary);
 		}
 	}
 
 	.connector {
 		height: 2px;
-		background-color: #e6e6e6;
+		background-color: var(--color-border);
 		min-width: 1.3rem;
 	}
 }

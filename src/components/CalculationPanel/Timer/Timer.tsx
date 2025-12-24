@@ -11,7 +11,7 @@ export function Timer({ onTick }: TimerProp): JSX.Element {
 
 	useEffect(() => {
 		const interval: number = setInterval(() => {
-			setSeconds(prev => prev + 1);
+			setSeconds((prev) => prev + 1);
 		}, 1000);
 
 		return () => {

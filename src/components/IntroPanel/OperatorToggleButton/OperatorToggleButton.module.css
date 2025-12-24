@@ -5,7 +5,7 @@
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
-	border-width: 1px;
+	border-width: var(--border-sm);
 	transition:
 		border-width 150ms ease,
 		border-color 150ms ease;
@@ -17,7 +17,7 @@
 	}
 
 	&.selected {
-		border-width: 2px;
-		border-color: #4ade80;
+		border-width: var(--border-md);
+		border-color: var(--color-selected);
 	}
 }

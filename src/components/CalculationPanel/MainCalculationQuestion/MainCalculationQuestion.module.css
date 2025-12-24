@@ -13,14 +13,12 @@
 .answer_input {
 	width: 18rem;
 	height: 2.5rem;
-	border: 1px solid gray;
+	border: var(--border-sm) solid var(--color-border-muted);
 	border-radius: 5px;
-	background-color: rgb(34, 40, 49);
-
-	font-size: 1.1rem;
+	background-color: var(--color-surface);
+	font-size: var(--font-size-lg);
 	font-family: inherit;
 	font-weight: 400;
-
 	padding: 0 0.5rem;
 	text-align: center;
 }

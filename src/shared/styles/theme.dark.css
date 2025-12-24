@@ -1,0 +1,26 @@
+:root {
+	/* color tokens  */
+
+	/* Semantic colors */
+	--color-success: #7be495;
+	--color-warning: #f5c86a;
+	--color-error: #ff2200;
+	--color-info: #7db9ff;
+
+	/* Surfaces colors */
+	--color-background: #181818;
+	--color-surface: #1d1b1b;
+
+	/* Text colors */
+	--color-text-primary: #ffffffde;
+	--color-text-link: #646cff;
+
+	/* Border colors */
+	--color-border: #e6e6e6;
+	--color-border-muted: #8d918b;
+
+	/* Interactive colors  */
+	--color-focus: #ffffff;
+	--color-hover: #535bf2;
+	--color-selected: #535bf2;
+}

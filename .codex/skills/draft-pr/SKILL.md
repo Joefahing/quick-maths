@@ -7,27 +7,34 @@ metadata:
 
 When invoked, do the following:
 
-1) Inspect the current git status and diff (staged + unstaged).
-2) If the diff is too large or mixed, propose how to split into smaller PRs.
-3) Propose a PR title (imperative, concise).
-4) Produce a PR description using THIS template:
+1. Inspect the current git status and diff (staged + unstaged).
+2. If the diff is too large or mixed, propose how to split into smaller PRs.
+3. If no diff is found, then changes is most like commited and push
+  - Check all commits made in this branch
+  - Use diff from commits as reference to what changed
+  - Read `developer.journal.md` to understand latest challenges and resolution
+4. Propose a PR title (imperative, concise).
+5. Produce a PR description using THIS template:
 
 ## Summary
+
 - <1–3 bullets: what changed>
 
 ## Why
+
 - <problem / motivation>
 
 ## How
+
 - <key implementation choices; mention main files/modules>
 
 ## File Changes
+
 - Should build a git friendly table with Header row (File, Changes)
 - File should be name of file that was changed
 - Changes should be 1 sentence summary on what was change in the file
 
-
-Constraints:
+## Constraints
 - Keep it readable and scannable.
 - Keep it github markdown friendly
 - Should be able to copy and paste to github PR with minimal edit

@@ -38,6 +38,7 @@ function MainCalculationQuestion(prop: { expression: string; onAnswerEntered: (a
 				<div className={styles.expression}>{expression}</div>
 				<input
 					className={styles.answer_input}
+					aria-label="answer-input"
 					type="text"
 					pattern="[0-9]*"
 					inputMode="text"

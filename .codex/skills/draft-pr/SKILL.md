@@ -13,8 +13,8 @@ When invoked, do the following:
   - Check all commits made in this branch
   - Use diff from commits as reference to what changed
   - Read `developer.journal.md` to understand latest challenges and resolution
-3. Propose a PR title (imperative, concise).
-4. Produce a PR description using THIS template:
+4. Propose a PR title (imperative, concise).
+5. Produce a PR description using THIS template:
 
 ## Summary
 

@@ -1,23 +1,48 @@
 # Developer Journal
 
-### Dec 24, 2025
+### Dec 26, 2025
+
 #### Overview
+
+Added more advanced integration tests for the operation toggle workflow and calculation panel questions.
+
+#### Problem Encountered
+
+1. Does jsdom include `localStorage`, or do I need to mock it?
+2. How do I mock `getQuestion` from `GeneratedQuestionService` in a component test?
+3. How do I target specific HTML elements in a list?
+
+#### Resolution
+1. Mocking is not necessary because jsdom includes `localStorage`.
+2. It is not advised to mock implementation details like props, so I used `vi.spyOn(GeneratedQuestionService.prototype, 'getQuestion')`.
+3. Add `data-testid` or `aria-label` to help target specific elements.
+
+---
+
+### Dec 24, 2025
+
+#### Overview
+
 Added a color theme and tokens to centralize styling across the app. As the app grows, managing colors in multiple places has started to get messy. Using a theme should improve maintainability and keep the UI consistent.
 
 #### Problem Encountered
+
 1. I wasn't sure how to categorize the theme or which properties belonged in each section.
 2. I forgot how to include CSS in React.
 
 #### Resolution
-1. I used ChatGpt to help define the categories and landed on:
+
+1. I used ChatGPT to help define the categories and landed on:
    - Semantics: correct, warning, errors
    - Fonts: text and links
    - Border
    - Interactive: hover, pressed, selected, etc
 
    I may add more tokens if new needs come up, but for now I'm keeping it minimal and avoiding over-engineering.
-2. I learned that using `@import` in a `.tsx` file lets Vite detect and apply the CSS globally, or scope it to a component if the file name includes `module`. For assets, the bundler resolves file names to URLs.
- 
+
+2. I learned that using `@import` in a `.tsx` file lets Vite detect and apply the CSS globally, or scope it to a component if the file name includes `.module`. For assets, the bundler resolves file names to URLs.
+
+---
 
 ### Dec 20, 2025
 

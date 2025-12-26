@@ -2,11 +2,10 @@ import { render, screen } from '@testing-library/react';
 import userEvent, { type UserEvent } from '@testing-library/user-event';
 import { describe, expect, it, type Mock, vi } from 'vitest';
 
-import { Operation } from '../../assets/types';
+import { Operation } from '../assets/types';
+import { IntroPanel } from '../components/IntroPanel/IntroPanel';
 
-import { IntroPanel } from './IntroPanel';
-
-describe('Intro Panel', () => {
+describe('IntroPanel start and operation callbacks', () => {
 	it('Calls onStart when start button is clicked', async () => {
 		const user: UserEvent = userEvent.setup();
 		const handleStart: Mock = vi.fn();

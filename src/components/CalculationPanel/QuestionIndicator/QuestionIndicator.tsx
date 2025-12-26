@@ -23,7 +23,7 @@ export function QuestionIndicator({ index, isLast, questionStatus }: QuestionInd
 	} else if (questionStatus === 'correct') {
 		indicatorContent = <img src={correctIcon} width={24} height={24} alt="Correct Question" />;
 	} else {
-		indicatorContent = <img src={incorrectIcon} width={24} height={24} alt="Incorrect Questione" />;
+		indicatorContent = <img src={incorrectIcon} width={24} height={24} alt="Incorrect Question" />;
 	}
 
 	const questionClassName = cn({
@@ -33,7 +33,9 @@ export function QuestionIndicator({ index, isLast, questionStatus }: QuestionInd
 
 	return (
 		<div className={styles.question_container}>
-			<div className={questionClassName}>{indicatorContent}</div>
+			<div className={questionClassName} data-testid={`question-indicator-${index}`}>
+				{indicatorContent}
+			</div>
 			{!isLast && <div className={styles.connector}></div>}
 		</div>
 	);

@@ -12,8 +12,9 @@
 1. How to get "month" abbreviation from date in Javascript
 
 ### Resoltuion
+
 1. Javascript's `Intl` library date formatter(Date, number...) that can format dates to short month. THe library also contain other formatters such as (numbersm duration, plural, and etc). By using native library,
-I am able to avoid relying on external npm packages.
+   I am able to avoid relying on external npm packages.
 
 ### Jan 1, 2026
 
@@ -28,9 +29,10 @@ Continue working on heatmap
 3. Why I don't need to explicitly define columns when using gridColumnStart?
 
 #### Resolution
+
 1. Grid would be the better solution because is easy to anchor month and week header since I can use grid make sure row and columns between different components
-all shares the same width and height.  
-2. Rows can be defined in css because there are only 7 rows representing days of week. Column can be dynamically defined in javascript base on how many weeks there are in "that" year. 
+   all shares the same width and height.
+2. Rows can be defined in css because there are only 7 rows representing days of week. Column can be dynamically defined in javascript base on how many weeks there are in "that" year.
 3. Grid implicitly adds more columns when `grid-auto-flow` is used
 
 ### Dec 26, 2025

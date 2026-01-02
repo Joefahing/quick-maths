@@ -30,3 +30,8 @@ export type GameAction =
 	| { type: 'init'; questions: Question[] }
 	| { type: 'reset' }
 	| { type: 'answer_added'; answer: QuestionAnswer };
+
+export type HeaderLabel = {
+	gridStart: number;
+	text: string;
+};

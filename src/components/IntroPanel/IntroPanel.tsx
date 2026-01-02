@@ -6,6 +6,7 @@ import subtractIcon from '../../assets/icons/subtraction_icon.svg';
 import { Operation } from '../../assets/types';
 import useKeydown from '../../shared/hooks/useKeydown';
 
+import { ActivityHeatmap } from './ActivityHeatmap/ActivityHeatmap';
 import { OperatorToggleButton } from './OperatorToggleButton/OperatorToggleButton';
 
 import styles from './IntroPanel.module.css';
@@ -44,6 +45,7 @@ export function IntroPanel({ selectedOperations, onStart, onOperationClicked }: 
 						<img src={multiplyIcon} width={20} height={20} alt="multiplication" />
 					</OperatorToggleButton>
 				</div>
+				<ActivityHeatmap />
 			</div>
 		</>
 	);

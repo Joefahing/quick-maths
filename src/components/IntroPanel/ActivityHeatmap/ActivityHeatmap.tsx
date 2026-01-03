@@ -19,6 +19,9 @@ export function ActivityHeatmap(): JSX.Element {
 		return activityHeatmapService.getCalendarGridByYear(currentYear);
 	}, []);
 
+	// Todo: Will calcuate contribution when data model is done
+	const streak: number = 50;
+
 	const cellElements: JSX.Element[] = getCellElements(calendarGrid);
 	const monthHeaderElements: JSX.Element[] = getMonthHeaderElements(
 		activityHeatmapService.getMonthLabels(calendarGrid)
@@ -27,15 +30,21 @@ export function ActivityHeatmap(): JSX.Element {
 
 	return (
 		<div className={classes.heatmap_container}>
-			<div className={classes.heatmap_content_container}>
-				<div
-					className={classes.month_header}
-					style={{ gridTemplateColumns: `repeat(${calendarGrid[0].length}, 10px)` }}
-				>
-					{monthHeaderElements}
+			<div className={classes.heatmap_header}>
+				{/* <div className={classes.runs_text}><span>{runs}</span> Math runs this year</div> */}
+				<div className={classes.streak_text}>Current Streak: <span>{streak} Days</span></div>
+			</div>
+			<div className={classes.heatmap_wrapper}>
+				<div className={classes.heatmap_content}>
+					<div
+						className={classes.month_header}
+						style={{ gridTemplateColumns: `repeat(${calendarGrid[0].length}, var(--cell-size))` }}
+					>
+						{monthHeaderElements}
+					</div>
+					<div className={classes.heatmap_grid}>{cellElements}</div>
+					<div className={classes.day_header}>{dayOfWeekHeaderElements}</div>
 				</div>
-				<div className={classes.heatmap_grid}>{cellElements}</div>
-				<div className={classes.day_header}>{dayOfWeekHeaderElements}</div>
 			</div>
 		</div>
 	);

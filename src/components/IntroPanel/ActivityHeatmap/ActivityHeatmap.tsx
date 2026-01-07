@@ -3,6 +3,7 @@ import classNames from 'classnames/bind';
 
 import type { HeaderLabel } from '../../../assets/types';
 import { DateUtilityService, DayIndex } from '../../../shared/services/DateService';
+import { ToolTip } from '../../Share/ToolTip/ToolTip';
 
 import { ActivityHeatMapService } from './ActivityHeatmapService';
 
@@ -31,8 +32,9 @@ export function ActivityHeatmap(): JSX.Element {
 	return (
 		<div className={classes.heatmap_container}>
 			<div className={classes.heatmap_header}>
-				{/* <div className={classes.runs_text}><span>{runs}</span> Math runs this year</div> */}
-				<div className={classes.streak_text}>Current Streak: <span>{streak} Days</span></div>
+				<div className={classes.streak_text}>
+					Current Streak: <span>{streak} Days</span>
+				</div>
 			</div>
 			<div className={classes.heatmap_wrapper}>
 				<div className={classes.heatmap_content}>
@@ -59,8 +61,19 @@ function getCellElements(calendarGrid: (Date | null)[][]): JSX.Element[] {
 				cell: true,
 				empty: calendarGrid[row][col] == null
 			});
-			const element: JSX.Element = <div className={cellClassName} key={`cell_row_${row}_col_${col}`}></div>;
-			cellElements.push(element);
+
+			if (calendarGrid[row][col] == null) {
+				cellElements.push(<div className={cellClassName} key={`cell_row_${row}_col_${col}`}></div>);
+			} else {
+				cellElements.push(
+					<ToolTip
+						content={DateUtilityService.getDateString(calendarGrid[row][col] ?? new Date())}
+						key={`tooltip_row_${row}_col_${col}`}
+					>
+						<div className={cellClassName} key={`cell_row_${row}_col_${col}`}></div>
+					</ToolTip>
+				);
+			}
 		}
 	}
 

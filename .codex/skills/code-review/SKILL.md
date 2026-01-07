@@ -21,6 +21,7 @@ When invoked, follow these steps exactly:
 ## Review Scope
 
 Focus on:
+
 - Correctness (logic, bugs, edge cases)
 - Code clarity and readability
 - Maintainability and structure
@@ -30,6 +31,7 @@ Focus on:
 - Missing tests or weak test coverage (if applicable)
 
 Do **not**:
+
 - Rewrite any code, only provide suggestions
 - Suggest speculative changes unrelated to the diff
 - Comment on formatting already handled by Prettier / ESLint unless there is a real issue
@@ -41,20 +43,23 @@ Provide feedback as a **list of issues**, ordered by **Severity (highest → low
 For each issue, use this exact structure:
 
 ### Problem
+
 Briefly describe what is wrong, risky, unclear, or suboptimal.
 Reference specific files or code sections when possible.
 
 ### Suggestion
+
 Explain how the issue can be fixed, improved, or clarified.
 Be concrete and actionable.
 
 ### Severity
+
 Give a short descirption on the rating and Rate the importance from **1 to 10**:
+
 - 9–10: Bug, data loss, broken behavior, or serious maintainability risk
 - 6–8: Correctness risk, architectural concern, or likely future issue
 - 3–5: Readability, consistency, or minor design concern
 - 1–2: Nit, optional improvement, or stylistic preference
-
 
 ## Output Rules
 

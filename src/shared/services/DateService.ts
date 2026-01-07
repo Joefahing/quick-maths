@@ -29,6 +29,11 @@ export class DateUtilityService {
 		month: 'short',
 		timeZone: 'UTC'
 	});
+	private static readonly yearMonthDayFormatter: Intl.DateTimeFormat = new Intl.DateTimeFormat('en-US', {
+		year: 'numeric',
+		month: 'short',
+		day: 'numeric'
+	});
 
 	public static getCurrentUTCYear(): number {
 		const today: Date = new Date();
@@ -57,5 +62,9 @@ export class DateUtilityService {
 		const endOfYear: number = Date.UTC(year + 1, 0, 1);
 
 		return Math.round((endOfYear - startOfYear) / (24 * 60 * 60 * 1000));
+	}
+
+	public static getDateString(date: Date): string {
+		return this.yearMonthDayFormatter.format(date);
 	}
 }

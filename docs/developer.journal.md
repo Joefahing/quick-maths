@@ -1,5 +1,11 @@
 # Developer Journal
 
+### Jan 10, 2025
+
+#### Problem Encountered
+
+1. Difference between Record and Map in Javascript?
+
 ### Jan 3, 2025
 
 - Added tooltip component to display tool tip
@@ -8,7 +14,9 @@
 
 1. After adding Tooltip, there was a problem `ActivityHeatmap` container uses `overflow: auto` in smaller screen size
    - Apparently absolute will still contribute to scroll size
-   - There is a thing call createPortal (VIP )
+   - There is a thing call createPortal (VIP)
+
+#### Resolution
 
 ### Jan 2, 2026
 

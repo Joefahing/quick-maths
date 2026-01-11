@@ -1,5 +1,9 @@
 :root {
 	/* color tokens  */
+	/* Green Palette */
+	--green-color-100: #14532d;
+	--green-color-200: #16a34a;
+	--green-color-300: #4ade80;
 
 	/* Semantic colors */
 	--color-success: #7be495;
@@ -24,4 +28,9 @@
 	--color-focus: #ffffff;
 	--color-hover: #535bf2;
 	--color-selected: #535bf2;
+
+	/* Component tokens */
+	--activity-low: var(--green-color-100);
+	--activity-medium: var(--green-color-200);
+	--activity-high: var(--green-color-300);
 }

@@ -3,18 +3,17 @@ export default class LocalStorageService {
 		try {
 			const item: string | null = window.localStorage.getItem(key);
 			return item ? JSON.parse(item) : undefined;
-
-			// eslint-disable-next-line @typescript-eslint/no-unused-vars
-		} catch (error) {
+		} catch {
 			return undefined;
 		}
 	}
 
-	public static setItem<T>(key: string, item: T): void {
+	public static setItem<T>(key: string, item: T): T | undefined {
 		try {
 			window.localStorage.setItem(key, JSON.stringify(item));
-		} catch (error) {
-			console.log(error);
+			return item;
+		} catch {
+			return undefined;
 		}
 	}
 }

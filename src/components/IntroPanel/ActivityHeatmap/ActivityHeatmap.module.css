@@ -62,8 +62,20 @@
 				.cell {
 					width: var(--cell-size);
 					height: var(--cell-size);
-					background: green;
+					background-color: var(--color-surface-light);
 					border-radius: 2px;
+
+					&.low {
+						background-color: var(--activity-low);
+					}
+
+					&.medium {
+						background-color: var(--activity-medium);
+					}
+
+					&.high {
+						background-color: var(--activity-high);
+					}
 
 					&.empty {
 						background-color: var(--color-background);

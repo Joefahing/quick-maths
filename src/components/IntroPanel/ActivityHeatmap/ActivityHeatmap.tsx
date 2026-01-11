@@ -1,26 +1,32 @@
 import { type JSX, useMemo, useRef } from 'react';
 import classNames from 'classnames/bind';
 
-import type { HeaderLabel } from '../../../assets/types';
-import { DateUtilityService, DayIndex } from '../../../shared/services/DateService';
+import { type Activity, ActivityLevel, type HeaderLabel } from '../../../assets/types';
+import { DateStringFormat, DateUtilitiesService, DayIndex } from '../../../shared/services/DateUtilitiesService';
 import { ToolTip } from '../../Share/ToolTip/ToolTip';
 
-import { ActivityHeatMapService } from './ActivityHeatmapService';
+import { ActivityHeatmapService } from './ActivityHeatmapService';
 
 import classes from './ActivityHeatmap.module.css';
 
 const classNameInit = classNames.bind(classes);
 
-export function ActivityHeatmap(): JSX.Element {
-	const activityHeatmapService: ActivityHeatMapService = useRef<ActivityHeatMapService>(
-		new ActivityHeatMapService()
-	).current;
-	const calendarGrid: (Date | null)[][] = useMemo<(Date | null)[][]>(() => {
-		const currentYear: number = DateUtilityService.getCurrentUTCYear();
-		return activityHeatmapService.getCalendarGridByYear(currentYear);
-	}, []);
+export interface ActivityHeatmapProps {
+	year: number;
+	activities: Activity[];
+}
 
-	// Todo: Will calcuate contribution when data model is done
+export function ActivityHeatmap({ year, activities }: ActivityHeatmapProps): JSX.Element {
+	const activityHeatmapService: ActivityHeatmapService = useRef<ActivityHeatmapService>(
+		new ActivityHeatmapService()
+	).current;
+
+	const calendarGrid: (Activity | null)[][] = useMemo(
+		() => activityHeatmapService.buildCalendarGrid(year, activities),
+		[activityHeatmapService, year, activities]
+	);
+
+	// TODO: Will calcuate contribution when data model is done
 	const streak: number = 50;
 
 	const cellElements: JSX.Element[] = getCellElements(calendarGrid);
@@ -52,24 +58,34 @@ export function ActivityHeatmap(): JSX.Element {
 	);
 }
 
-function getCellElements(calendarGrid: (Date | null)[][]): JSX.Element[] {
+function getCellElements(calendarGrid: (Activity | null)[][]): JSX.Element[] {
 	const cellElements: JSX.Element[] = [];
 
 	for (let col = 0; col < calendarGrid[0].length; col++) {
 		for (let row = 0; row < calendarGrid.length; row++) {
-			const cellClassName = classNameInit({
-				cell: true,
-				empty: calendarGrid[row][col] == null
-			});
-
-			if (calendarGrid[row][col] == null) {
+			const activitiy: Activity | null = calendarGrid[row][col];
+			
+			if (activitiy == null) {
+				const cellClassName = classNameInit({
+					cell: true,
+					empty: true
+				});
 				cellElements.push(<div className={cellClassName} key={`cell_row_${row}_col_${col}`}></div>);
 			} else {
+				const count: number = activitiy.count;
+				const date: Date = new Date(activitiy.date);
+				const tooltipContent: string = `${count} runs on ${DateUtilitiesService.getDateString(date, DateStringFormat.MonthDay)}`;
+
+				const cellClassName = classNameInit({
+					cell: true,
+					none: isActivityLevel(count, ActivityLevel.None),
+					low: isActivityLevel(count, ActivityLevel.Low),
+					medium: isActivityLevel(count, ActivityLevel.Medium),
+					high: isActivityLevel(count, ActivityLevel.High)
+				});
+
 				cellElements.push(
-					<ToolTip
-						content={DateUtilityService.getDateString(calendarGrid[row][col] ?? new Date())}
-						key={`tooltip_row_${row}_col_${col}`}
-					>
+					<ToolTip content={tooltipContent} key={`tooltip_row_${row}_col_${col}`}>
 						<div className={cellClassName} key={`cell_row_${row}_col_${col}`}></div>
 					</ToolTip>
 				);
@@ -78,6 +94,15 @@ function getCellElements(calendarGrid: (Date | null)[][]): JSX.Element[] {
 	}
 
 	return cellElements;
+}
+
+function isActivityLevel(count: number, level: ActivityLevel): boolean {
+	if (count === 0 && level === ActivityLevel.None) return true;
+	else if (count === 1 && level === ActivityLevel.Low) return true;
+	else if (count === 2 && level === ActivityLevel.Medium) return true;
+	else if (count >= 3 && level === ActivityLevel.High) return true;
+
+	return false;
 }
 
 function getMonthHeaderElements(headerLabels: HeaderLabel[]): JSX.Element[] {

@@ -35,3 +35,15 @@ export type HeaderLabel = {
 	gridStart: number;
 	text: string;
 };
+
+export interface Activity {
+	date: string;
+	count: number;
+}
+
+export enum ActivityLevel {
+	None,
+	Low,
+	Medium,
+	High
+}

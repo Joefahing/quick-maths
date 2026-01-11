@@ -22,8 +22,7 @@ export function ToolTip({ content, children }: ToolTipProps): JSX.Element {
 
 	const updatePosition = useCallback(() => {
 		const anchor = wrapperRef.current;
-		if (!anchor)
-		{
+		if (!anchor) {
 			return;
 		}
 
@@ -55,7 +54,6 @@ export function ToolTip({ content, children }: ToolTipProps): JSX.Element {
 			window.removeEventListener('scroll', handleScroll, true);
 			window.removeEventListener('resize', handleResize);
 		};
-		
 	}, [isVisible, updatePosition]);
 
 	const showTooltip = () => {

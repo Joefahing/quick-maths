@@ -1,6 +1,6 @@
 import { Navigate } from 'react-router-dom';
 
-import { type JSX } from 'react';
+import { type JSX, useEffect } from 'react';
 import classNames from 'classnames/bind';
 
 import checkIcon from '../../assets/icons/check_icon.svg';
@@ -12,38 +12,43 @@ import useKeydown from '../../shared/hooks/useKeydown';
 import styles from './Scores.module.css';
 
 const className = classNames.bind(styles);
-export function Score(props: { answers: QuestionAnswer[]; onAgain: () => void }): JSX.Element {
-	const { answers, onAgain } = props;
 
-	function getAnswerString(questionAnswer: QuestionAnswer) {
-		return `${questionAnswer.question.expression} = ${questionAnswer.answer}`;
-	}
+export interface ScoreProps {
+	answers: QuestionAnswer[];
+	onAgain: () => void;
+	onGameComplete: () => void;
+}
 
-	function getResultList(): JSX.Element[] {
-		return answers.map((answer: QuestionAnswer, index: number) => {
-			const expressionClassName: string = className({
-				expression: true,
-				incorrect: !answer.isCorrect
-			});
+export function Score({ answers, onAgain, onGameComplete }: ScoreProps): JSX.Element {
+	useEffect(() => {
+		if (answers.length === 0) return;
 
-			return (
-				<li className={styles.answer} key={index}>
-					<span>Time: {answer.time}s</span>
-					<span className={expressionClassName}>{getAnswerString(answer)}</span>
-					{answer.isCorrect ? (
-						<img src={checkIcon} width={24} height={24} alt="Correct" />
-					) : (
-						<img src={errorIcon} width={24} height={24} alt="Incorrect" />
-					)}
-				</li>
-			);
-		});
-	}
+		onGameComplete();
+	}, [answers, onGameComplete]);
 
 	useKeydown('Escape', onAgain);
 
 	const correctAnswerCount: number = answers.filter((x) => x.isCorrect).length;
 	const successRate: number = correctAnswerCount / answers.length;
+
+	if (answers.length == 0) {
+		return <Navigate to={paths.home} />;
+	}
+
+	return (
+		<div className={styles.score_panel}>
+			<h2>Result</h2>
+			<ul className={styles.result}>{getResultList(answers)}</ul>
+			<div className={styles.sucess_rate}>
+				{`${correctAnswerCount}/${answers.length}`}
+				<span className={styles.face}>: {getFace(successRate)}</span>
+			</div>
+			<button onClick={onAgain}>Again</button>
+		</div>
+	);
+}
+
+function getFace(successRate: number): string {
 	let face: string = '';
 
 	if (successRate >= 0.7) {
@@ -54,21 +59,30 @@ export function Score(props: { answers: QuestionAnswer[]; onAgain: () => void })
 		face = '(';
 	}
 
-	if (answers.length == 0) {
-		return <Navigate to={paths.home} />;
-	}
+	return face;
+}
 
-	return (
-		<>
-			<div className={styles.score_panel}>
-				<h2>Result</h2>
-				<ul className={styles.result}>{getResultList()}</ul>
-				<div className={styles.sucess_rate}>
-					{`${correctAnswerCount}/${answers.length}`}
-					<span className={styles.face}>: {face}</span>
-				</div>
-				<button onClick={onAgain}>Again</button>
-			</div>
-		</>
-	);
+function getAnswerString(questionAnswer: QuestionAnswer) {
+	return `${questionAnswer.question.expression} = ${questionAnswer.answer}`;
+}
+
+function getResultList(answers: QuestionAnswer[]): JSX.Element[] {
+	return answers.map((answer: QuestionAnswer, index: number) => {
+		const expressionClassName: string = className({
+			expression: true,
+			incorrect: !answer.isCorrect
+		});
+
+		return (
+			<li className={styles.answer} key={index}>
+				<span>Time: {answer.time}s</span>
+				<span className={expressionClassName}>{getAnswerString(answer)}</span>
+				{answer.isCorrect ? (
+					<img src={checkIcon} width={24} height={24} alt="Correct" />
+				) : (
+					<img src={errorIcon} width={24} height={24} alt="Incorrect" />
+				)}
+			</li>
+		);
+	});
 }

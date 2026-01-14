@@ -3,7 +3,7 @@ import { type JSX } from 'react';
 import addIcon from '../../assets/icons/add_icon.svg';
 import multiplyIcon from '../../assets/icons/multiplication_icon.svg';
 import subtractIcon from '../../assets/icons/subtraction_icon.svg';
-import { type Activity, Operation } from '../../assets/types';
+import { Operation,type UserActivity } from '../../assets/types';
 import useKeydown from '../../shared/hooks/useKeydown';
 
 import { ActivityHeatmap, type ActivityHeatmapProps } from './ActivityHeatmap/ActivityHeatmap';
@@ -14,21 +14,21 @@ import styles from './IntroPanel.module.css';
 export interface IntroPanelProps {
 	selectedOperations: Operation;
 	year: number;
-	activities: Activity[];
+	userActivities: UserActivity[];
 	onStart: () => void;
 	onOperationClicked: (operation: Operation) => void;
 }
 
 export function IntroPanel({
 	selectedOperations,
-	activities,
+	userActivities,
 	year,
 	onStart,
 	onOperationClicked
 }: IntroPanelProps): JSX.Element {
 	useKeydown('Enter', onStart);
 
-	const heatmapProps: ActivityHeatmapProps = { year, activities };
+	const heatmapProps: ActivityHeatmapProps = { year, userActivities };
 
 	return (
 		<>

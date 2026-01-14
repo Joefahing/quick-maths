@@ -1,4 +1,4 @@
-import type { Activity } from '../../../assets/types';
+import type { UserActivity } from '../../../assets/types';
 import LocalStorageService from '../../../services/LocalStorageService';
 import { DateStringFormat, DateUtilitiesService } from '../DateUtilitiesService';
 
@@ -8,15 +8,15 @@ class LocalStorageUserActivityService extends UserActivityService {
 	constructor() {
 		super();
 	}
-	public getUserActivities(start: Date, end: Date): Promise<Activity[]> {
+	public getUserActivities(start: Date, end: Date): Promise<UserActivity[]> {
 		const dateCursor: Date = new Date(start.getTime());
-		const activities: Activity[] = [];
+		const userActivities: UserActivity[] = [];
 
 		while (dateCursor.getTime() <= end.getTime()) {
 			const dateKey: string = DateUtilitiesService.getDateString(dateCursor, DateStringFormat.YearMonthDay);
 			const count: number = LocalStorageService.getItem<number>(dateKey) ?? 0;
 
-			activities.push({
+			userActivities.push({
 				date: dateKey,
 				count: count
 			});
@@ -24,9 +24,9 @@ class LocalStorageUserActivityService extends UserActivityService {
 			dateCursor.setUTCDate(dateCursor.getUTCDate() + 1);
 		}
 
-		return Promise.resolve(activities);
+		return Promise.resolve(userActivities);
 	}
-	public getUserAcitivty(date: Date): Promise<Activity> {
+	public getUserActivity(date: Date): Promise<UserActivity> {
 		const dateKey: string = DateUtilitiesService.getDateString(date, DateStringFormat.YearMonthDay);
 		const count: number = LocalStorageService.getItem<number>(dateKey) ?? 0;
 
@@ -36,12 +36,12 @@ class LocalStorageUserActivityService extends UserActivityService {
 		});
 	}
 
-	public async addUserActivity(date: Date): Promise<Activity> {
-		const activity: Activity = await this.getUserAcitivty(date);
-		const newCount: number = activity.count + 1;
+	public async addUserActivity(date: Date): Promise<UserActivity> {
+		const userActivity: UserActivity = await this.getUserActivity(date);
+		const newCount: number = userActivity.count + 1;
 
-		if (LocalStorageService.setItem<number>(activity.date, newCount) != undefined) {
-			return { date: activity.date, count: newCount };
+		if (LocalStorageService.setItem<number>(userActivity.date, newCount) != undefined) {
+			return { date: userActivity.date, count: newCount };
 		} else {
 			throw new Error('Add user activity fail');
 		}

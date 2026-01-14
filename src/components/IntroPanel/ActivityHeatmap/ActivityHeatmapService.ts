@@ -1,19 +1,19 @@
-import type { Activity, HeaderLabel } from '../../../assets/types';
+import type { HeaderLabel, UserActivity } from '../../../assets/types';
 import { DateStringFormat, DateUtilitiesService } from '../../../shared/services/DateUtilitiesService';
 
 export class ActivityHeatmapService {
-	public getMonthLabels(calendarGrid: (Activity | null)[][]): HeaderLabel[] {
+	public static getMonthLabels(calendarGrid: (UserActivity | null)[][]): HeaderLabel[] {
 		if (calendarGrid[0].length === 0) {
 			//TODO: implement error page
 			throw new Error('Calendar grid cannot be empty');
 		}
 
-		const sundays: (Activity | null)[] = calendarGrid[0];
+		const sundays: (UserActivity | null)[] = calendarGrid[0];
 		const headerLabels: HeaderLabel[] = [];
 		let pastSunday: Date | null = null;
 
 		for (let i = 0; i < sundays.length; i++) {
-			const currentSundayActivity: Activity | null = sundays[i];
+			const currentSundayActivity: UserActivity | null = sundays[i];
 			if (currentSundayActivity == null) continue;
 
 			const currentSunday: Date = new Date(currentSundayActivity.date);
@@ -32,28 +32,28 @@ export class ActivityHeatmapService {
 		return headerLabels;
 	}
 
-	public buildCalendarGrid(year: number, activities: Activity[]): (Activity | null)[][] {
-		const calendarGrid: (Activity | null)[][] = this.getCalendarGridByYear(year);
+	public static buildCalendarGrid(year: number, userActivities: UserActivity[]): (UserActivity | null)[][] {
+		const calendarGrid: (UserActivity | null)[][] = this.getCalendarGridByYear(year);
 
-		const activitiesRecord: Record<string, number> = {};
+		const userActivityCountByDate: Record<string, number> = {};
 
-		for (const activity of activities) {
-			activitiesRecord[activity.date] = activity.count;
+		for (const userActivity of userActivities) {
+			userActivityCountByDate[userActivity.date] = userActivity.count;
 		}
 
 		for (const row of calendarGrid) {
 			for (let col = 0; col < row.length; col++) {
-				const cell: Activity | null = row[col];
-				if (cell == null || activitiesRecord[cell.date] == undefined) continue;
+				const cell: UserActivity | null = row[col];
+				if (cell == null || userActivityCountByDate[cell.date] == undefined) continue;
 
-				cell.count = activitiesRecord[cell.date];
+				cell.count = userActivityCountByDate[cell.date];
 			}
 		}
 
 		return calendarGrid;
 	}
 
-	public getCalendarGridByYear(year: number): (Activity | null)[][] {
+	public static getCalendarGridByYear(year: number): (UserActivity | null)[][] {
 		const firstDayOfYearOffset: number = DateUtilitiesService.getFirstUTCDayOfYearOffset(year);
 		const lastDayOfYearOffset: number = DateUtilitiesService.getLastUTCDayOfYearOffset(year);
 
@@ -64,14 +64,17 @@ export class ActivityHeatmapService {
 		cellHaveValue.push(...Array(DateUtilitiesService.getDaysInYear(year)).fill(true));
 		cellHaveValue.push(...Array(lastDayOfYearOffset).fill(false));
 
-		const calendarGrid: (Activity | null)[][] = Array.from({ length: DateUtilitiesService.daysInWeek }, () => []);
+		const calendarGrid: (UserActivity | null)[][] = Array.from(
+			{ length: DateUtilitiesService.daysInWeek },
+			() => []
+		);
 		const dateCursor: Date = DateUtilitiesService.getFirstUTCDayOfYear(year);
 
 		for (let cellIndex = 0; cellIndex < cellHaveValue.length; cellIndex++) {
 			const row: number = cellIndex % DateUtilitiesService.daysInWeek;
 			const col: number = Math.floor(cellIndex / DateUtilitiesService.daysInWeek);
 
-			let cellValue: Activity | null = null;
+			let cellValue: UserActivity | null = null;
 
 			if (cellHaveValue[cellIndex]) {
 				cellValue = {

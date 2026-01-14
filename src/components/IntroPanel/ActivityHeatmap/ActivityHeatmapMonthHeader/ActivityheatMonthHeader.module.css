@@ -1,0 +1,11 @@
+.month_header {
+	display: grid;
+	grid-area: month_header;
+	gap: var(--grid_gap);
+}
+
+.label {
+	font-size: 0.75rem;
+	font-weight: 600;
+	color: var(--color-text-primary);
+}

@@ -36,7 +36,7 @@ export type HeaderLabel = {
 	text: string;
 };
 
-export interface Activity {
+export interface UserActivity {
 	date: string;
 	count: number;
 }

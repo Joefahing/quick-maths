@@ -1,5 +1,5 @@
 import type { HeaderLabel, UserActivity } from '../../../assets/types';
-import { DateStringFormat, DateUtilitiesService } from '../../../shared/services/DateUtilitiesService';
+import { DateUtilitiesService } from '../../../shared/services/DateUtilitiesService';
 
 export class ActivityHeatmapService {
 	public static getUserActivityCountByDate(userActivities: UserActivity[]): Record<string, number> {
@@ -12,16 +12,16 @@ export class ActivityHeatmapService {
 		return userActivityCountByDate;
 	}
 
-	public static getStreakFromActivities(userActivities: UserActivity[], dateFormat: DateStringFormat): number {
+	public static getStreakFromActivities(userActivities: UserActivity[]): number {
 		const userActivityCountByDate: Record<string, number> = this.getUserActivityCountByDate(userActivities);
 		const dateCursor: Date = DateUtilitiesService.getUTCToday();
 		let streak: number = 0;
-		let dateCursorString: string = DateUtilitiesService.getDateString(dateCursor, dateFormat);
+		let dateCursorString: string = DateUtilitiesService.getKeyByDate(dateCursor);
 
 		while (userActivityCountByDate[dateCursorString] != undefined && userActivityCountByDate[dateCursorString] > 0) {
 			streak++;
 			dateCursor.setUTCDate(dateCursor.getUTCDate() - 1);
-			dateCursorString = DateUtilitiesService.getDateString(dateCursor, dateFormat);
+			dateCursorString = DateUtilitiesService.getKeyByDate(dateCursor);
 		}
 
 		return streak;
@@ -95,7 +95,7 @@ export class ActivityHeatmapService {
 
 			if (cellHaveValue[cellIndex]) {
 				cellValue = {
-					date: DateUtilitiesService.getDateString(dateCursor, DateStringFormat.YearMonthDay),
+					date: DateUtilitiesService.getKeyByDate(dateCursor),
 					count: 0
 				};
 			}

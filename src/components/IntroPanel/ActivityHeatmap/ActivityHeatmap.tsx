@@ -1,7 +1,6 @@
 import { type JSX, useMemo } from 'react';
 
 import type { UserActivity } from '../../../assets/types';
-import { DateStringFormat } from '../../../shared/services/DateUtilitiesService';
 
 import { ActivityHeatmapDayHeader } from './ActivityHeatmapDayHeader/ActivityHeatmapDayHeader';
 import { ActivityHeatmapGrid } from './ActivityHeatmapGrid/ActivityHeatmapGrid';
@@ -22,7 +21,7 @@ export function ActivityHeatmap({ year, userActivities }: ActivityHeatmapProps):
 	);
 
 	const streak: number = useMemo(() => {
-		return ActivityHeatmapService.getStreakFromActivities(userActivities, DateStringFormat.YearMonthDay);
+		return ActivityHeatmapService.getStreakFromActivities(userActivities);
 	}, [userActivities]);
 
 	return (

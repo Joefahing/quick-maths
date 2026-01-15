@@ -1,5 +1,5 @@
 import type { UserActivity } from '../../../assets/types';
-import { DateStringFormat, DateUtilitiesService } from '../DateUtilitiesService';
+import { DateUtilitiesService } from '../DateUtilitiesService';
 import LocalStorageService from '../LocalStorageService';
 
 import UserActivityService from './UserActivityService';
@@ -14,7 +14,7 @@ class LocalStorageUserActivityService extends UserActivityService {
 		const userActivities: UserActivity[] = [];
 
 		while (dateCursor.getTime() <= end.getTime()) {
-			const dateKey: string = DateUtilitiesService.getDateString(dateCursor, DateStringFormat.YearMonthDay);
+			const dateKey: string = DateUtilitiesService.getKeyByDate(dateCursor);
 			const count: number = LocalStorageService.getItem<number>(dateKey) ?? 0;
 
 			userActivities.push({
@@ -29,7 +29,7 @@ class LocalStorageUserActivityService extends UserActivityService {
 	}
 
 	public getUserActivity(date: Date): Promise<UserActivity> {
-		const dateKey: string = DateUtilitiesService.getDateString(date, DateStringFormat.YearMonthDay);
+		const dateKey: string = DateUtilitiesService.getKeyByDate(date);
 		const count: number = LocalStorageService.getItem<number>(dateKey) ?? 0;
 
 		return Promise.resolve({

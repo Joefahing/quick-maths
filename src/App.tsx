@@ -7,10 +7,11 @@ import { CalculationPanel, type CalculationPanelProps } from './components/Calcu
 import { IntroPanel, type IntroPanelProps } from './components/IntroPanel/IntroPanel';
 import { Score, type ScoreProps } from './components/Score/Score';
 import paths from './routes/routes';
+import { AppSettingContext, type AppSettingContextValue } from './shared/context/AppSettingContext';
 import usePersistentState from './shared/hooks/usePersistentState';
 import { useUserActivities } from './shared/hooks/useUserActivities';
 import { gameSessionReducer } from './shared/reducers/GameSessionReducer';
-import { DateUtilitiesService } from './shared/services/DateUtilitiesService';
+import { DateStringFormat, DateUtilitiesService } from './shared/services/DateUtilitiesService';
 import GeneratedQuestionService from './shared/services/GeneratedQuestionService';
 import type FetchQuestionService from './shared/services/RetrieveQuestionService';
 import LocalStorageUserActivityService from './shared/services/UserActivityService/LocalStorageUserActivityService';
@@ -83,13 +84,19 @@ function App(): JSX.Element {
 		onGameComplete: handleGameCompleted
 	};
 
+	const appSettingContextValue: AppSettingContextValue = {
+		dateKeyFormat: DateStringFormat.YearMonthDay
+	};
+
 	return (
 		<div className="quick_math_app">
-			<Routes>
-				<Route path="/" element={<IntroPanel {...introPanelProps} />} />
-				<Route path="/calculate" element={<CalculationPanel {...calculationPanelProps} />} />
-				<Route path="/score" element={<Score {...scorePanelProps} />} />
-			</Routes>
+			<AppSettingContext.Provider value={appSettingContextValue}>
+				<Routes>
+					<Route path="/" element={<IntroPanel {...introPanelProps} />} />
+					<Route path="/calculate" element={<CalculationPanel {...calculationPanelProps} />} />
+					<Route path="/score" element={<Score {...scorePanelProps} />} />
+				</Routes>
+			</AppSettingContext.Provider>
 		</div>
 	);
 }

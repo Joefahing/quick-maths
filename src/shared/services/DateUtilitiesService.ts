@@ -99,6 +99,10 @@ export class DateUtilitiesService {
 		return this.monthDayYearFormatter.format(date);
 	}
 
+	public static getKeyByDate(date: Date) {
+		return this.getDateString(date, DateStringFormat.YearMonthDay);
+	}
+
 	public static isValidDate(date: Date): boolean {
 		return !Number.isNaN(date.getTime());
 	}

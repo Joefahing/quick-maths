@@ -1,0 +1,14 @@
+.day_header {
+	display: grid;
+	grid-area: day_header;
+	grid-template-rows: repeat(7, var(--cell-size));
+	grid-auto-flow: row;
+	justify-content: center;
+	align-items: center;
+}
+
+.label {
+	font-size: 0.75rem;
+	font-weight: 600;
+	color: var(--color-text-primary);
+}

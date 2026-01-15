@@ -1,0 +1,43 @@
+.heatmap_container {
+	--grid_gap: 3px;
+	--cell-size: 0.6rem;
+
+	.heatmap_header {
+		display: flex;
+		justify-content: space-between;
+		padding: 0.25rem 0.5rem;
+
+		.streak_text {
+			font-weight: 600;
+			font-size: var(--font-size-sm);
+
+			& span {
+				font-size: var(--font-size-md);
+			}
+		}
+	}
+
+	.heatmap_wrapper {
+		display: flex;
+		border: 1px solid var(--color-border);
+		border-radius: var(--border-radius);
+		align-items: center;
+		justify-content: center;
+		background-color: var(--color-surface);
+
+		.heatmap_content {
+			max-width: 25rem;
+			display: grid;
+			overflow: auto;
+			margin: 0.5rem;
+			grid-template-areas:
+				'.		month_header'
+				'day_header	heatmap';
+			column-gap: var(--grid_gap);
+
+			@media (min-width: 768px) {
+				max-width: 45rem;
+			}
+		}
+	}
+}

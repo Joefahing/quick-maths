@@ -1,4 +1,4 @@
-import { Operation, type Question } from '../assets/types';
+import { Operation, type Question } from '../../assets/types';
 
 import QuestionService from './QuestionService';
 import RetrieveQuestionService from './RetrieveQuestionService';

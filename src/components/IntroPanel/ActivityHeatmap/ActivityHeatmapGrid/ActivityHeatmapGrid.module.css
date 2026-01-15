@@ -1,0 +1,31 @@
+.heatmap_grid {
+	display: grid;
+	grid-area: heatmap;
+	grid-auto-flow: column;
+	grid-auto-columns: var(--cell-size);
+	grid-template-rows: repeat(7, var(--cell-size));
+	gap: var(--grid_gap);
+}
+
+.cell {
+	width: var(--cell-size);
+	height: var(--cell-size);
+	background-color: var(--color-surface-light);
+	border-radius: 2px;
+}
+
+.low {
+	background-color: var(--activity-low);
+}
+
+.medium {
+	background-color: var(--activity-medium);
+}
+
+.high {
+	background-color: var(--activity-high);
+}
+
+.empty {
+	background-color: var(--color-background);
+}

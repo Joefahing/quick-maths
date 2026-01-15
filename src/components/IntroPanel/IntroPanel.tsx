@@ -3,15 +3,32 @@ import { type JSX } from 'react';
 import addIcon from '../../assets/icons/add_icon.svg';
 import multiplyIcon from '../../assets/icons/multiplication_icon.svg';
 import subtractIcon from '../../assets/icons/subtraction_icon.svg';
-import { Operation } from '../../assets/types';
+import { Operation, type UserActivity } from '../../assets/types';
 import useKeydown from '../../shared/hooks/useKeydown';
 
+import { ActivityHeatmap, type ActivityHeatmapProps } from './ActivityHeatmap/ActivityHeatmap';
 import { OperatorToggleButton } from './OperatorToggleButton/OperatorToggleButton';
 
 import styles from './IntroPanel.module.css';
 
-export function IntroPanel({ selectedOperations, onStart, onOperationClicked }: IntroPanelProps): JSX.Element {
+export interface IntroPanelProps {
+	selectedOperations: Operation;
+	year: number;
+	userActivities: UserActivity[];
+	onStart: () => void;
+	onOperationClicked: (operation: Operation) => void;
+}
+
+export function IntroPanel({
+	selectedOperations,
+	userActivities,
+	year,
+	onStart,
+	onOperationClicked
+}: IntroPanelProps): JSX.Element {
 	useKeydown('Enter', onStart);
+
+	const heatmapProps: ActivityHeatmapProps = { year, userActivities };
 
 	return (
 		<>
@@ -44,12 +61,8 @@ export function IntroPanel({ selectedOperations, onStart, onOperationClicked }: 
 						<img src={multiplyIcon} width={20} height={20} alt="multiplication" />
 					</OperatorToggleButton>
 				</div>
+				<ActivityHeatmap {...heatmapProps} />
 			</div>
 		</>
 	);
-}
-export interface IntroPanelProps {
-	selectedOperations: Operation;
-	onStart: () => void;
-	onOperationClicked: (operation: Operation) => void;
 }

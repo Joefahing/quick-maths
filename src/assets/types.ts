@@ -30,3 +30,20 @@ export type GameAction =
 	| { type: 'init'; questions: Question[] }
 	| { type: 'reset' }
 	| { type: 'answer_added'; answer: QuestionAnswer };
+
+export type HeaderLabel = {
+	gridStart: number;
+	text: string;
+};
+
+export interface UserActivity {
+	date: string;
+	count: number;
+}
+
+export enum ActivityLevel {
+	None,
+	Low,
+	Medium,
+	High
+}

@@ -4,10 +4,18 @@
 	--font-size-sm: 0.875rem; /* 14px */
 	--font-size-md: 1rem; /* 16px */
 	--font-size-lg: 1.25rem; /* 20px */
-	--font-size-lx: 1.5rem; /* 24px */
+	--font-size-xlg: 1.5rem; /* 24px */
 
 	/* Border */
 	--border-sm: 1px;
 	--border-md: 2px;
 	--border-lg: 3px;
+	--border-radius: 0.5rem;
+
+	/* Screen Sizes */
+	--bp-xs: 0px;
+	--bp-s: 480px;
+	--bp-md: 768px;
+	--bp-lg: 1024px;
+	--bp-xl: 1280px;
 }

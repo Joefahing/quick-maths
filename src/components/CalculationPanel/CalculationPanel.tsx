@@ -4,8 +4,8 @@ import { type JSX, useCallback, useRef } from 'react';
 
 import { type Question, type QuestionAnswer } from '../../assets/types';
 import paths from '../../routes/routes';
-import QuestionService from '../../services/QuestionService';
 import { QuestionsContext, type QuestionsContextValue } from '../../shared/context/QuestionContext';
+import QuestionService from '../../shared/services/QuestionService';
 
 import MainCalculationQuestion from './MainCalculationQuestion/MainCalculationQuestion';
 import { ProgressBar } from './ProgressBar/ProgressBar';
@@ -13,13 +13,13 @@ import { Timer } from './Timer/Timer';
 
 import styles from './CalculationPanel.module.css';
 
-export interface CalculationPanelProp {
+export interface CalculationPanelProps {
 	answers: QuestionAnswer[];
 	questions: Question[];
 	onQuestionAnswered: (question: QuestionAnswer) => void;
 }
 
-export function CalculationPanel({ answers, questions, onQuestionAnswered }: CalculationPanelProp): JSX.Element {
+export function CalculationPanel({ answers, questions, onQuestionAnswered }: CalculationPanelProps): JSX.Element {
 	const secondsRef = useRef(0);
 	const handleTick = useCallback((nextSecond: number) => {
 		secondsRef.current = nextSecond;

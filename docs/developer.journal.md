@@ -1,5 +1,64 @@
 # Developer Journal
 
+### Jan 14, 2025
+
+- Added `useUserActivities` hook to replace fetching and updating of use activities to make userActivity more flexible and reusable
+- Refactor `ActivityHeatmap` component to split in smaller sub components
+- Added streak functionality
+
+### Jan 10, 2025
+
+#### Problem Encountered
+
+1. Difference between Record and Map in Javascript?
+
+### Jan 3, 2025
+
+- Added tooltip component to display tool tip
+
+#### Problem Encountered
+
+1. After adding Tooltip, there was a problem `ActivityHeatmap` container uses `overflow: auto` in smaller screen size
+   - Apparently absolute will still contribute to scroll size
+   - There is a thing call createPortal (VIP)
+
+#### Resolution
+
+### Jan 2, 2026
+
+#### Overview
+
+- Fixing grid layout issue I had where each grid area was spread out.
+- Added function to generate month
+
+#### Problem Encountered
+
+1. How to get "month" abbreviation from date in Javascript
+
+### Resoltuion
+
+1. Javascript's `Intl` library date formatter(Date, number...) that can format dates to short month. THe library also contain other formatters such as (numbersm duration, plural, and etc). By using native library,
+   I am able to avoid relying on external npm packages.
+
+### Jan 1, 2026
+
+#### Overview
+
+Continue working on heatmap
+
+#### Problem Encountered
+
+1. Should I use table, grid, or flex to implement heatmap?
+2. Do I need to explicitly define column and row for grid?
+3. Why I don't need to explicitly define columns when using gridColumnStart?
+
+#### Resolution
+
+1. Grid would be the better solution because is easy to anchor month and week header since I can use grid make sure row and columns between different components
+   all shares the same width and height.
+2. Rows can be defined in css because there are only 7 rows representing days of week. Column can be dynamically defined in javascript base on how many weeks there are in "that" year.
+3. Grid implicitly adds more columns when `grid-auto-flow` is used
+
 ### Dec 26, 2025
 
 #### Overview
@@ -13,6 +72,7 @@ Added more advanced integration tests for the operation toggle workflow and calc
 3. How do I target specific HTML elements in a list?
 
 #### Resolution
+
 1. Mocking is not necessary because jsdom includes `localStorage`.
 2. It is not advised to mock implementation details like props, so I used `vi.spyOn(GeneratedQuestionService.prototype, 'getQuestion')`.
 3. Add `data-testid` or `aria-label` to help target specific elements.

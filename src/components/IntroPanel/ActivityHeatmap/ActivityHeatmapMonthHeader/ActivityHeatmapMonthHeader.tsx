@@ -10,7 +10,9 @@ export interface ActivityHeatmapMonthHeaderProps {
 }
 
 export function ActivityHeatmapMonthHeader({ calendarGrid }: ActivityHeatmapMonthHeaderProps): JSX.Element {
-	const monthHeaderElements: JSX.Element[] = getMonthHeaderElements(ActivityHeatmapService.getMonthLabels(calendarGrid));
+	const monthHeaderElements: JSX.Element[] = getMonthHeaderElements(
+		ActivityHeatmapService.getMonthLabels(calendarGrid)
+	);
 
 	return (
 		<div

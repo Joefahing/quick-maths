@@ -3,7 +3,7 @@ import { type JSX } from 'react';
 import addIcon from '../../assets/icons/add_icon.svg';
 import multiplyIcon from '../../assets/icons/multiplication_icon.svg';
 import subtractIcon from '../../assets/icons/subtraction_icon.svg';
-import { Operation,type UserActivity } from '../../assets/types';
+import { Operation, type UserActivity } from '../../assets/types';
 import useKeydown from '../../shared/hooks/useKeydown';
 
 import { ActivityHeatmap, type ActivityHeatmapProps } from './ActivityHeatmap/ActivityHeatmap';

@@ -1,6 +1,7 @@
 import { type JSX, useMemo } from 'react';
 
 import type { UserActivity } from '../../../assets/types';
+import { DateStringFormat } from '../../../shared/services/DateUtilitiesService';
 
 import { ActivityHeatmapDayHeader } from './ActivityHeatmapDayHeader/ActivityHeatmapDayHeader';
 import { ActivityHeatmapGrid } from './ActivityHeatmapGrid/ActivityHeatmapGrid';
@@ -20,8 +21,9 @@ export function ActivityHeatmap({ year, userActivities }: ActivityHeatmapProps):
 		[year, userActivities]
 	);
 
-	// TODO: Will calcuate contribution when data model is done
-	const streak: number = 50;
+	const streak: number = useMemo(() => {
+		return ActivityHeatmapService.getStreakFromActivities(userActivities, DateStringFormat.YearMonthDay);
+	}, [userActivities]);
 
 	return (
 		<div className={classes.heatmap_container}>

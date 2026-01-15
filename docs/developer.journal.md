@@ -1,8 +1,10 @@
 # Developer Journal
 
 ### Jan 14, 2025
+
 - Added `useUserActivities` hook to replace fetching and updating of use activities to make userActivity more flexible and reusable
 - Refactor `ActivityHeatmap` component to split in smaller sub components
+- Added streak functionality
 
 ### Jan 10, 2025
 

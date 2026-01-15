@@ -31,7 +31,8 @@ export function useUserActivities(year: number, userActivityService: UserActivit
 				if (error instanceof Error) setUserActivitiesError(error);
 				else setUserActivitiesError(new Error(String(error)));
 			}
-		}, [userActivityService]
+		},
+		[userActivityService]
 	);
 
 	const addUserActivity = useCallback(async () => {

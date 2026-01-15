@@ -2,6 +2,31 @@ import type { HeaderLabel, UserActivity } from '../../../assets/types';
 import { DateStringFormat, DateUtilitiesService } from '../../../shared/services/DateUtilitiesService';
 
 export class ActivityHeatmapService {
+	public static getUserActivityCountByDate(userActivities: UserActivity[]): Record<string, number> {
+		const userActivityCountByDate: Record<string, number> = {};
+
+		for (const userActivity of userActivities) {
+			userActivityCountByDate[userActivity.date] = userActivity.count;
+		}
+
+		return userActivityCountByDate;
+	}
+
+	public static getStreakFromActivities(userActivities: UserActivity[], dateFormat: DateStringFormat): number {
+		const userActivityCountByDate: Record<string, number> = this.getUserActivityCountByDate(userActivities);
+		const dateCursor: Date = DateUtilitiesService.getUTCToday();
+		let streak: number = 0;
+		let dateCursorString: string = DateUtilitiesService.getDateString(dateCursor, dateFormat);
+
+		while (userActivityCountByDate[dateCursorString] != undefined && userActivityCountByDate[dateCursorString] > 0) {
+			streak++;
+			dateCursor.setUTCDate(dateCursor.getUTCDate() - 1);
+			dateCursorString = DateUtilitiesService.getDateString(dateCursor, dateFormat);
+		}
+
+		return streak;
+	}
+
 	public static getMonthLabels(calendarGrid: (UserActivity | null)[][]): HeaderLabel[] {
 		if (calendarGrid[0].length === 0) {
 			//TODO: implement error page
@@ -34,12 +59,7 @@ export class ActivityHeatmapService {
 
 	public static buildCalendarGrid(year: number, userActivities: UserActivity[]): (UserActivity | null)[][] {
 		const calendarGrid: (UserActivity | null)[][] = this.getCalendarGridByYear(year);
-
-		const userActivityCountByDate: Record<string, number> = {};
-
-		for (const userActivity of userActivities) {
-			userActivityCountByDate[userActivity.date] = userActivity.count;
-		}
+		const userActivityCountByDate: Record<string, number> = this.getUserActivityCountByDate(userActivities);
 
 		for (const row of calendarGrid) {
 			for (let col = 0; col < row.length; col++) {
@@ -64,10 +84,7 @@ export class ActivityHeatmapService {
 		cellHaveValue.push(...Array(DateUtilitiesService.getDaysInYear(year)).fill(true));
 		cellHaveValue.push(...Array(lastDayOfYearOffset).fill(false));
 
-		const calendarGrid: (UserActivity | null)[][] = Array.from(
-			{ length: DateUtilitiesService.daysInWeek },
-			() => []
-		);
+		const calendarGrid: (UserActivity | null)[][] = Array.from({ length: DateUtilitiesService.daysInWeek }, () => []);
 		const dateCursor: Date = DateUtilitiesService.getFirstUTCDayOfYear(year);
 
 		for (let cellIndex = 0; cellIndex < cellHaveValue.length; cellIndex++) {

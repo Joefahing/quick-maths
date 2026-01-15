@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import App from '../App';
-import GeneratedQuestionService from '../services/GeneratedQuestionService';
+import GeneratedQuestionService from '../shared/services/GeneratedQuestionService';
 
 import styles from '../components/CalculationPanel/QuestionIndicator/QuestionIndicator.module.css';
 

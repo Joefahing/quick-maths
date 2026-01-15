@@ -1,4 +1,4 @@
-import type { Question } from '../assets/types';
+import type { Question } from '../../assets/types';
 
 class QuestionService {
 	// Define operators and their operations

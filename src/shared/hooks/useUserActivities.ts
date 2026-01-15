@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 
 import type { UserActivity } from '../../assets/types';
-import type UserActivityService from '../services/ActivityService/UserActivityService';
 import { DateUtilitiesService } from '../services/DateUtilitiesService';
+import type UserActivityService from '../services/UserActivityService/UserActivityService';
 
 export interface UseUserActivitiesResult {
 	userActivities: UserActivity[];
@@ -31,8 +31,7 @@ export function useUserActivities(year: number, userActivityService: UserActivit
 				if (error instanceof Error) setUserActivitiesError(error);
 				else setUserActivitiesError(new Error(String(error)));
 			}
-		},
-		[userActivityService]
+		}, [userActivityService]
 	);
 
 	const addUserActivity = useCallback(async () => {

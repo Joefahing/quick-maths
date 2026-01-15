@@ -7,7 +7,6 @@ export default function useKeydown(key: string, onKeydown: () => void) {
 
 	useEffect(() => {
 		document.addEventListener('keydown', handleKeydown);
-
 		return () => document.removeEventListener('keydown', handleKeydown);
 	}, []);
 }

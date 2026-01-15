@@ -1,6 +1,6 @@
 import { type Dispatch, type SetStateAction, useEffect, useState } from 'react';
 
-import LocalStorageService from '../../services/LocalStorageService';
+import LocalStorageService from '../services/LocalStorageService';
 
 export default function usePersistentState<T>(key: string, defaultValue: T): readonly [T, Dispatch<SetStateAction<T>>] {
 	const [value, setValue] = useState<T>(() => {

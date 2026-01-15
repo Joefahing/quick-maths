@@ -4,8 +4,8 @@ import { type JSX, useCallback, useRef } from 'react';
 
 import { type Question, type QuestionAnswer } from '../../assets/types';
 import paths from '../../routes/routes';
-import QuestionService from '../../services/QuestionService';
 import { QuestionsContext, type QuestionsContextValue } from '../../shared/context/QuestionContext';
+import QuestionService from '../../shared/services/QuestionService';
 
 import MainCalculationQuestion from './MainCalculationQuestion/MainCalculationQuestion';
 import { ProgressBar } from './ProgressBar/ProgressBar';

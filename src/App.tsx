@@ -7,14 +7,14 @@ import { CalculationPanel, type CalculationPanelProps } from './components/Calcu
 import { IntroPanel, type IntroPanelProps } from './components/IntroPanel/IntroPanel';
 import { Score, type ScoreProps } from './components/Score/Score';
 import paths from './routes/routes';
-import GeneratedQuestionService from './services/GeneratedQuestionService';
-import type FetchQuestionService from './services/RetrieveQuestionService';
 import usePersistentState from './shared/hooks/usePersistentState';
 import { useUserActivities } from './shared/hooks/useUserActivities';
 import { gameSessionReducer } from './shared/reducers/GameSessionReducer';
-import LocalStorageUserActivityService from './shared/services/ActivityService/LocalStorageUserActivityService';
-import type UserActivityService from './shared/services/ActivityService/UserActivityService';
 import { DateUtilitiesService } from './shared/services/DateUtilitiesService';
+import GeneratedQuestionService from './shared/services/GeneratedQuestionService';
+import type FetchQuestionService from './shared/services/RetrieveQuestionService';
+import LocalStorageUserActivityService from './shared/services/UserActivityService/LocalStorageUserActivityService';
+import type UserActivityService from './shared/services/UserActivityService/UserActivityService';
 
 import './App.css';
 

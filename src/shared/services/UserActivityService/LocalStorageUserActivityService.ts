@@ -2,14 +2,17 @@ import type { UserActivity } from '../../../assets/types';
 import { DateUtilitiesService } from '../DateUtilitiesService';
 import LocalStorageService from '../LocalStorageService';
 
-import UserActivityService from './UserActivityService';
+import UserActivityService, { type UserActivitiesResult, type UserActivityResult } from './UserActivityService';
 
 class LocalStorageUserActivityService extends UserActivityService {
+	private streak: number = 0;
+	private streakLoaded: boolean = false;
+
 	constructor() {
 		super();
 	}
 
-	public getUserActivities(start: Date, end: Date): Promise<UserActivity[]> {
+	public getUserActivities(start: Date, end: Date): Promise<UserActivitiesResult> {
 		const dateCursor: Date = new Date(start.getTime());
 		const userActivities: UserActivity[] = [];
 
@@ -25,7 +28,17 @@ class LocalStorageUserActivityService extends UserActivityService {
 			dateCursor.setUTCDate(dateCursor.getUTCDate() + 1);
 		}
 
-		return Promise.resolve(userActivities);
+		if (!this.streakLoaded) {
+			this.streak = this.getStreakCount();
+			this.streakLoaded = true;
+		}
+
+		const userActivitiesResult: UserActivitiesResult = {
+			userActivities: userActivities,
+			streak: this.streak
+		};
+
+		return Promise.resolve(userActivitiesResult);
 	}
 
 	public getUserActivity(date: Date): Promise<UserActivity> {
@@ -38,15 +51,35 @@ class LocalStorageUserActivityService extends UserActivityService {
 		});
 	}
 
-	public async addUserActivity(date: Date): Promise<UserActivity> {
+	public async addUserActivity(date: Date): Promise<UserActivityResult> {
 		const userActivity: UserActivity = await this.getUserActivity(date);
 		const newCount: number = userActivity.count + 1;
 
 		if (LocalStorageService.setItem<number>(userActivity.date, newCount) != undefined) {
-			return { date: userActivity.date, count: newCount };
+			if (this.streak == 0) this.streak++;
+
+			const newUserActivity: UserActivity = { date: userActivity.date, count: newCount };
+			const userActivityResult: UserActivityResult = {
+				userActivity: newUserActivity,
+				streak: this.streak
+			};
+
+			return userActivityResult;
 		} else {
 			throw new Error('Add user activity fail');
 		}
+	}
+
+	private getStreakCount(): number {
+		let streak = 0;
+		const dateCursor = DateUtilitiesService.getUTCToday();
+
+		while ((LocalStorageService.getItem<number>(DateUtilitiesService.getKeyByDate(dateCursor)) ?? 0) > 0) {
+			streak++;
+			dateCursor.setUTCDate(dateCursor.getUTCDate() - 1);
+		}
+
+		return streak;
 	}
 }
 

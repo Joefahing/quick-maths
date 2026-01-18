@@ -25,13 +25,13 @@ export function useUserActivities(year: number, userActivityService: UserActivit
 			setUserActivitiesError(null);
 
 			try {
-				const fetchedUserActivities: UserActivitiesResult = await userActivityService.getUserActivities(
+				const fetchedUserActivitiesResult: UserActivitiesResult = await userActivityService.getUserActivities(
 					startofYear,
 					endofYear
 				);
 
-				setUserActivities(fetchedUserActivities.userActivities);
-				setStreak(fetchedUserActivities.streak);
+				setUserActivities(fetchedUserActivitiesResult.userActivities);
+				setStreak(fetchedUserActivitiesResult.streak);
 			} catch (error: unknown) {
 				if (error instanceof Error) setUserActivitiesError(error);
 				else setUserActivitiesError(new Error(String(error)));

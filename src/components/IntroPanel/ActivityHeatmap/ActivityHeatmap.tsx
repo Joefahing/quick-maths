@@ -12,23 +12,20 @@ import classes from './ActivityHeatmap.module.css';
 export interface ActivityHeatmapProps {
 	year: number;
 	userActivities: UserActivity[];
+	userActivitiesStreak: number;
 }
 
-export function ActivityHeatmap({ year, userActivities }: ActivityHeatmapProps): JSX.Element {
+export function ActivityHeatmap({ year, userActivities, userActivitiesStreak }: ActivityHeatmapProps): JSX.Element {
 	const calendarGrid: (UserActivity | null)[][] = useMemo(
 		() => ActivityHeatmapService.buildCalendarGrid(year, userActivities),
 		[year, userActivities]
 	);
 
-	const streak: number = useMemo(() => {
-		return ActivityHeatmapService.getStreakFromActivities(userActivities);
-	}, [userActivities]);
-
 	return (
 		<div className={classes.heatmap_container}>
 			<div className={classes.heatmap_header}>
 				<div className={classes.streak_text}>
-					Current Streak: <span>{streak} Days</span>
+					Current Streak: <span>{userActivitiesStreak} Days</span>
 				</div>
 			</div>
 			<div className={classes.heatmap_wrapper}>

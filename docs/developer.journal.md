@@ -1,18 +1,39 @@
 # Developer Journal
 
-### Jan 14, 2025
+### Jan 18, 2026
+
+- Updated logic to retrieve streak
+
+#### Architecture decision
+
+- Should I directly call LocalStorage to get count or should I do it through `GetActivity`?
+
+#### Resolution
+
+- End up getting count directly from LocalStorage because I wouldn't have to deal with array of promises and I don't see any advantage gain from minmic API call from Local Storage
+
+### Jan 15, 2026
+
+- Heatmap project reflection
+
+### Jan 14, 2026
 
 - Added `useUserActivities` hook to replace fetching and updating of use activities to make userActivity more flexible and reusable
 - Refactor `ActivityHeatmap` component to split in smaller sub components
 - Added streak functionality
+- Sync all date key
 
-### Jan 10, 2025
+### Jan 10, 2026
 
 #### Problem Encountered
 
 1. Difference between Record and Map in Javascript?
 
-### Jan 3, 2025
+#### Resolution
+
+Record is a type and the key only support `number` and `string`. So is can be uses in siutation where we are only performing simple look up. Map is a class that allow key to be any data. Use it for more complex and dynamic situation.
+
+### Jan 3, 2026
 
 - Added tooltip component to display tool tip
 
@@ -23,6 +44,8 @@
    - There is a thing call createPortal (VIP)
 
 #### Resolution
+
+- Use createPortal create tooltip outside of component flow
 
 ### Jan 2, 2026
 

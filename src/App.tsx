@@ -26,7 +26,7 @@ function App(): JSX.Element {
 	const fetchQuestionService: FetchQuestionService = useRef(new GeneratedQuestionService()).current;
 	const userActivityService: UserActivityService = useRef(new LocalStorageUserActivityService()).current;
 	const navigate: NavigateFunction = useNavigate();
-	const { userActivities, addUserActivity } = useUserActivities(
+	const { userActivities, streak, addUserActivity } = useUserActivities(
 		DateUtilitiesService.getCurrentUTCYear(),
 		userActivityService
 	);
@@ -68,6 +68,7 @@ function App(): JSX.Element {
 		selectedOperations: selectedOperations,
 		year: DateUtilitiesService.getCurrentUTCYear(),
 		userActivities: userActivities,
+		userActivitiesStreak: streak,
 		onOperationClicked: handleOperationClicked,
 		onStart: handleStart
 	};

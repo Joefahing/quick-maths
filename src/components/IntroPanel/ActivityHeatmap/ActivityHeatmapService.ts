@@ -12,21 +12,6 @@ export class ActivityHeatmapService {
 		return userActivityCountByDate;
 	}
 
-	public static getStreakFromActivities(userActivities: UserActivity[]): number {
-		const userActivityCountByDate: Record<string, number> = this.getUserActivityCountByDate(userActivities);
-		const dateCursor: Date = DateUtilitiesService.getUTCToday();
-		let streak: number = 0;
-		let dateCursorString: string = DateUtilitiesService.getKeyByDate(dateCursor);
-
-		while (userActivityCountByDate[dateCursorString] != undefined && userActivityCountByDate[dateCursorString] > 0) {
-			streak++;
-			dateCursor.setUTCDate(dateCursor.getUTCDate() - 1);
-			dateCursorString = DateUtilitiesService.getKeyByDate(dateCursor);
-		}
-
-		return streak;
-	}
-
 	public static getMonthLabels(calendarGrid: (UserActivity | null)[][]): HeaderLabel[] {
 		if (calendarGrid[0].length === 0) {
 			//TODO: implement error page

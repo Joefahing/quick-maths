@@ -16,6 +16,7 @@ describe('IntroPanel start and operation callbacks', () => {
 				selectedOperations={Operation.Add}
 				year={2025}
 				userActivities={[]}
+				userActivitiesStreak={0}
 				onStart={handleStart}
 				onOperationClicked={handleOperationClicked}
 			/>
@@ -41,6 +42,7 @@ describe('IntroPanel start and operation callbacks', () => {
 				selectedOperations={Operation.Add}
 				year={2025}
 				userActivities={[]}
+				userActivitiesStreak={0}
 				onOperationClicked={handleOperationClicked}
 				onStart={handleStart}
 			/>
@@ -63,6 +65,7 @@ describe('IntroPanel start and operation callbacks', () => {
 				selectedOperations={Operation.Add}
 				year={2025}
 				userActivities={[]}
+				userActivitiesStreak={0}
 				onOperationClicked={handleOperationClicked}
 				onStart={handleStart}
 			/>

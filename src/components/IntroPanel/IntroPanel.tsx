@@ -15,6 +15,7 @@ export interface IntroPanelProps {
 	selectedOperations: Operation;
 	year: number;
 	userActivities: UserActivity[];
+	userActivitiesStreak: number;
 	onStart: () => void;
 	onOperationClicked: (operation: Operation) => void;
 }
@@ -23,12 +24,13 @@ export function IntroPanel({
 	selectedOperations,
 	userActivities,
 	year,
+	userActivitiesStreak,
 	onStart,
 	onOperationClicked
 }: IntroPanelProps): JSX.Element {
 	useKeydown('Enter', onStart);
 
-	const heatmapProps: ActivityHeatmapProps = { year, userActivities };
+	const heatmapProps: ActivityHeatmapProps = { year: year, userActivities, userActivitiesStreak };
 
 	return (
 		<>

@@ -1,5 +1,10 @@
 # Developer Journal
 
+### Jan 20, 2026
+
+#### Questions Encountered
+1. Does the name of the `.yml` file matters for git action?
+
 ### Jan 18, 2026
 
 - Updated logic to retrieve streak

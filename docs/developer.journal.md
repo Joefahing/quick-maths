@@ -1,5 +1,10 @@
 # Developer Journal
 
+### Feb 6, 2026
+- Update random question generator only generate non zero subtraction question. I believe this would remove the edge cause of
+not having "-" key in mobile keyboard
+- Added version.json and skill in preparation for upcoming version page
+
 ### Jan 18, 2026
 
 - Updated logic to retrieve streak

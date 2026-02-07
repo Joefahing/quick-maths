@@ -1,0 +1,22 @@
+{
+	"meta": {
+		"versioning": "semver",
+		"types": ["added", "changed", "fixed", "removed"],
+		"scopes": ["gameplay", "ui", "performance", "bug"]
+	},
+	"versions": [
+		{
+			"version": "1.0.1",
+			"date": "2026-02-06",
+			"title": "Removed negative subtraction results",
+			"overview": "Subtraction no longer generates negative answers.",
+			"changes": [
+				{
+					"type": "changed",
+					"scope": "gameplay",
+					"text": "Subtraction now clamps to non-negative results."
+				}
+			]
+		}
+	]
+}

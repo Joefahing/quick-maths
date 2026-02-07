@@ -1,4 +1,4 @@
-import type { Question } from '../../assets/types';
+import { Operation, type Question } from '../../assets/types';
 
 class QuestionService {
 	// Define operators and their operations
@@ -7,6 +7,12 @@ class QuestionService {
 		['-', (a, b) => a - b],
 		['x', (a, b) => a * b],
 		['/', (a, b) => a / b]
+	]);
+
+	private static operatorSymbolMap: Map<Operation, string> = new Map<Operation, string>([
+		[Operation.Add, '+'],
+		[Operation.Subtract, '-'],
+		[Operation.Multiply, 'x']
 	]);
 
 	public static getAnswer(expression: string): number {
@@ -19,24 +25,30 @@ class QuestionService {
 		}
 
 		const [, num1Str, operator, num2Str] = match;
-		const operation = this.operatorMap.get(operator);
+		const equation = this.operatorMap.get(operator);
 
-		if (!operation) {
+		if (!equation) {
 			throw new Error('Invalid operator');
 		}
 
-		return operation(Number(num1Str), Number(num2Str));
+		return equation(Number(num1Str), Number(num2Str));
 	}
 
-	public static getQuestion(id: string, num1: number, num2: number, operator: string): Question {
-		const fn = this.operatorMap.get(operator);
+	public static getQuestion(id: string, num1: number, num2: number, operator: Operation): Question {
+		const symbol = this.operatorSymbolMap.get(operator);
+
+		if (!symbol) {
+			throw new Error('Invalid operator');
+		}
+
+		const fn = this.operatorMap.get(symbol);
 
 		if (!fn) {
 			throw new Error('Invalid operator');
 		}
 
 		return {
-			expression: this.getExpression(num1, num2, operator),
+			expression: this.getExpression(num1, num2, symbol),
 			id: id
 		};
 	}

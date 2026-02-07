@@ -7,18 +7,12 @@ class GeneratedQuestionService extends RetrieveQuestionService {
 	private maxDigits: number = 2;
 	private maxQuestionCount: number = 9;
 	private minQuestionCount: number = 6;
-	private operatorSymbols: Map<Operation, string> = new Map<Operation, string>([
-		[Operation.Add, '+'],
-		[Operation.Subtract, '-'],
-		[Operation.Multiply, 'x']
-	]);
+	private availableOperations: Operation[] = [Operation.Add, Operation.Subtract, Operation.Multiply];
 
 	public async getQuestion(selectedOperations: Operation): Promise<Question[] | null> {
 		const questionCount = this.randomNumber(this.minQuestionCount, this.maxQuestionCount);
 		const questions: Question[] = [];
-		const operations: Operation[] = Array.from(this.operatorSymbols.keys()).filter(
-			(op) => (selectedOperations & op) !== 0
-		);
+		const operations: Operation[] = this.availableOperations.filter((op) => (selectedOperations & op) !== 0);
 
 		let id: number = 0;
 		while (questions.length < questionCount) {
@@ -29,10 +23,11 @@ class GeneratedQuestionService extends RetrieveQuestionService {
 			const num2: number = Math.floor(multiplier2 * Math.random());
 
 			const randomOperation: Operation = operations[this.randomNumber(0, operations.length - 1)];
-			const operator: string | undefined = this.operatorSymbols.get(randomOperation);
 
-			if (operator != undefined) {
-				questions.push(QuestionService.getQuestion(id.toString(), num1, num2, operator));
+			if (randomOperation == Operation.Subtract && num1 < num2) {
+				questions.push(QuestionService.getQuestion(id.toString(), num2, num1, randomOperation));
+			} else {
+				questions.push(QuestionService.getQuestion(id.toString(), num1, num2, randomOperation));
 			}
 		}
 

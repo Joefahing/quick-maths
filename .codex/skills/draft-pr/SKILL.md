@@ -41,3 +41,6 @@ When invoked, do the following:
 - Keep it readable and scannable.
 - Keep it github markdown friendly
 - Should be able to copy and paste to github PR with minimal edit
+- Never use markdown links for file names (avoid `[...]()` links, especially `file+.vscode-resource...`).
+- If a `file+.vscode-resource...` URL would appear in output, remove the URL entirely and keep only the visible text wrapped in backticks.
+- When highlighting file names, wrap them in backticks (e.g., `version.json`).

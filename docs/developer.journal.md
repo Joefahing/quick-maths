@@ -1,9 +1,9 @@
 # Developer Journal
 
-### Jan 20, 2026
-
-#### Questions Encountered
-1. Does the name of the `.yml` file matters for git action?
+### Feb 6, 2026
+- Update random question generator only generate non zero subtraction question. I believe this would remove the edge cause of
+not having "-" key in mobile keyboard
+- Added version.json and skill in preparation for upcoming version page
 
 ### Jan 18, 2026
 

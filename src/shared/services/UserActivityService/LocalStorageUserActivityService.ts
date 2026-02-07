@@ -5,7 +5,6 @@ import LocalStorageService from '../LocalStorageService';
 import UserActivityService, { type UserActivitiesResult, type UserActivityResult } from './UserActivityService';
 
 class LocalStorageUserActivityService extends UserActivityService {
-
 	constructor() {
 		super();
 	}
@@ -49,7 +48,6 @@ class LocalStorageUserActivityService extends UserActivityService {
 		const newCount: number = userActivity.count + 1;
 
 		if (LocalStorageService.setItem<number>(userActivity.date, newCount) != undefined) {
-			
 			const newUserActivity: UserActivity = { date: userActivity.date, count: newCount };
 			const userActivityResult: UserActivityResult = {
 				userActivity: newUserActivity,

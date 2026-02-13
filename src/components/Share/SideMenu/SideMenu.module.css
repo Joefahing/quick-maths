@@ -1,0 +1,33 @@
+.side_menu {
+	position: sticky;
+	top: 0;
+	height: 100svh;
+	z-index: 10;
+
+	&:hover,
+	&:focus-within {
+		.side_menu_label_expander {
+			width: 12rem;
+			overflow: visible;
+		}
+	}
+
+	.side_menu_label_expander {
+		width: var(--sidebar_width);
+		height: 100%;
+		overflow: hidden;
+		transition: width 180ms;
+
+		.side_menu_container {
+			display: flex;
+			flex-direction: column;
+			align-items: start;
+			justify-content: center;
+			gap: 1rem;
+			height: 100%;
+			background-color: var(--color-background);
+			pointer-events: auto;
+			padding-left: 0.5rem;
+		}
+	}
+}

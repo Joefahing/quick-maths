@@ -1,0 +1,40 @@
+.side_menu_button {
+	--menu_item_icon_height: 2rem;
+
+	display: grid;
+	grid-template-columns: var(--menu_item_icon_height) 1fr;
+	align-items: center;
+	min-height: var(--menu_item_icon_height);
+	gap: 0.5rem;
+	width: auto;
+	border-radius: 0.5rem;
+	padding: 0.5rem 1rem;
+	cursor: pointer;
+	user-select: none;
+	transform-origin: left center;
+	border-width: 0;
+	background: var(--color-background);
+	transition:
+		transform 120ms ease,
+		background-color 120ms ease;
+
+	&:active {
+		transform: scale(0.97);
+	}
+
+	&:hover,
+	&:focus,
+	&:focus-visible
+	{
+		outline: none;
+		background-color: var(--color-hover);
+	}
+
+	.side_menu_button_label {
+		padding-top: 0;
+		font-size: var(--font-size-md);
+		font-weight: 500;
+		overflow: hidden;
+		white-space: nowrap;
+	}
+}

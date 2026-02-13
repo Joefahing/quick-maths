@@ -1,0 +1,13 @@
+.game_layout {
+	min-height: 100svh;
+	width: 100%;
+	display: grid;
+	grid-template-columns: var(--sidebar_width) 1fr;
+
+	.content_container {
+		min-height: 1svh;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+}

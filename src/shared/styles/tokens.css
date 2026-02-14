@@ -13,7 +13,7 @@
 	--border-radius: 0.5rem;
 
 	/* Screen Sizes */
-	--bp-xs: 0px;
+	--bp-xs: 360px;
 	--bp-s: 480px;
 	--bp-md: 768px;
 	--bp-lg: 1024px;

@@ -5,8 +5,7 @@
 	display: grid;
 	grid-template-columns: var(--sidebar_width) 1fr;
 
-	@media (max-width: 765px)
-	{
+	@media (max-width: 765px) {
 		grid-template-columns: 1fr;
 		grid-template-rows: 1fr auto;
 

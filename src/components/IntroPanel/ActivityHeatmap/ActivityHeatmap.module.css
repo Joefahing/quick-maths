@@ -35,8 +35,7 @@
 				'day_header	heatmap';
 			column-gap: var(--grid_gap);
 
-			@media (min-width: 480px)
-			{
+			@media (min-width: 480px) {
 				max-width: 30rem;
 			}
 

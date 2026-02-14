@@ -1,12 +1,11 @@
-import { MemoryRouter } from "react-router-dom";
+import { MemoryRouter } from 'react-router-dom';
 
-import { render, screen, within } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { render, screen, within } from '@testing-library/react';
+import { describe, expect, it } from 'vitest';
 
-import App from "../App";
+import App from '../App';
 
-describe('Side menu buttons should be displaying in Game Layout', () =>
-{
+describe('Side menu buttons should be displaying in Game Layout', () => {
 	const menuButtons = [
 		{ label: /Home/i, iconAlt: /Home/i },
 		{ label: /Settings/i, iconAlt: /Settings/i },

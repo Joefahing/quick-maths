@@ -1,6 +1,6 @@
 .side_menu_button {
 	--menu_item_icon_height: 50px;
-	
+
 	padding: 4px;
 	width: 2.5rem;
 	height: 2.5rem;
@@ -9,16 +9,15 @@
 	align-items: center;
 	justify-content: center;
 	background: var(--color-background);
-	
+
 	&:active {
 		transform: scale(0.97);
 		background-color: var(--color-hover);
 	}
-	
+
 	&:hover,
 	&:focus,
-	&:focus-visible
-	{
+	&:focus-visible {
 		outline: none;
 		background-color: var(--color-background);
 	}
@@ -26,9 +25,8 @@
 	.side_menu_button_label {
 		display: none;
 	}
-	
-	@media (min-width: 766px)
-	{
+
+	@media (min-width: 766px) {
 		display: grid;
 		grid-template-columns: 2.5rem 1fr;
 		min-height: var(--menu_item_icon_height);
@@ -46,8 +44,7 @@
 
 		&:hover,
 		&:focus,
-		&:focus-visible
-		{
+		&:focus-visible {
 			outline: none;
 			background-color: var(--color-hover);
 		}

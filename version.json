@@ -6,6 +6,29 @@
 	},
 	"versions": [
 		{
+			"version": "1.1.0",
+			"date": "2026-02-14",
+			"title": "Add Side Menu and Pages",
+			"overview": "Add a side menu to support navigation for upcoming pages and features. Introduce new placeholder pages where content will be added later.",
+			"changes": [
+				{
+					"type": "added",
+					"scope": "ui",
+					"text": "Added a side navigation menu with About Me, Settings, Updates, and Contact buttons."
+				},
+				{
+					"type": "added",
+					"scope": "ui",
+					"text": "Added Coming Soon pages for About Me, Settings, Updates, and Contact."
+				},
+				{
+					"type": "fixed",
+					"scope": "bug",
+					"text": "Fixed mobile heatmap rendering issues."
+				}
+			]
+		},
+		{
 			"version": "1.0.1",
 			"date": "2026-02-06",
 			"title": "Removed negative subtraction results",

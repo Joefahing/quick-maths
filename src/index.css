@@ -50,6 +50,7 @@ button {
 	font-size: var(--font-size-md);
 	font-weight: 500;
 	font-family: inherit;
+	color: var(--color-text-primary);
 	background-color: var(--color-surface);
 	cursor: pointer;
 	transition: border-color 0.25s;

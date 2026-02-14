@@ -16,7 +16,7 @@ import classes from './SideMenu.module.css';
 export function SideMenu(): JSX.Element {
 	
 	const navigate: NavigateFunction = useNavigate();
-	const iconSize: number = 24;
+	const iconSize: number = 28;
 	const noop = (): void => {};
 
 	return (

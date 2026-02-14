@@ -1,11 +1,25 @@
 .game_layout {
 	min-height: 100svh;
 	width: 100%;
+	min-width: var(--bp-xs);
 	display: grid;
 	grid-template-columns: var(--sidebar_width) 1fr;
 
+	@media (max-width: 765px)
+	{
+		grid-template-columns: 1fr;
+		grid-template-rows: 1fr auto;
+
+		.content_container {
+			grid-row: 1 / 2;
+		}
+
+		.side_menu {
+			grid-row: 2 / 3;
+		}
+	}
+
 	.content_container {
-		min-height: 1svh;
 		display: flex;
 		align-items: center;
 		justify-content: center;

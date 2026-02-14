@@ -9,17 +9,17 @@ import type { QuestionAnswer } from '../../assets/types';
 import paths from '../../routes/routes';
 import useKeydown from '../../shared/hooks/useKeydown';
 
-import styles from './Scores.module.css';
+import styles from './ScorePanel.module.css';
 
 const className = classNames.bind(styles);
 
-export interface ScoreProps {
+export interface ScorePanelProps {
 	answers: QuestionAnswer[];
 	onAgain: () => void;
 	onGameComplete: () => void;
 }
 
-export function Score({ answers, onAgain, onGameComplete }: ScoreProps): JSX.Element {
+export function ScorePanel({ answers, onAgain, onGameComplete }: ScorePanelProps): JSX.Element {
 	useEffect(() => {
 		if (answers.length === 0) return;
 

@@ -1,0 +1,61 @@
+.side_menu_button {
+	--menu_item_icon_height: 50px;
+
+	padding: 4px;
+	width: 2.5rem;
+	height: 2.5rem;
+	border-width: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: var(--color-background);
+
+	&:active {
+		transform: scale(0.97);
+		background-color: var(--color-hover);
+	}
+
+	&:hover,
+	&:focus,
+	&:focus-visible {
+		outline: none;
+		background-color: var(--color-hover);
+	}
+
+	.side_menu_button_label {
+		display: none;
+	}
+
+	@media (min-width: 766px) {
+		display: grid;
+		grid-template-columns: 2.5rem 1fr;
+		min-height: var(--menu_item_icon_height);
+		gap: 0.5rem;
+		width: auto;
+		border-radius: 0.5rem;
+		padding: 0.5rem 1rem;
+		cursor: pointer;
+		user-select: none;
+		transform-origin: left center;
+		border-width: 0;
+		transition:
+			transform 120ms ease,
+			background-color 120ms ease;
+
+		&:hover,
+		&:focus,
+		&:focus-visible {
+			outline: none;
+			background-color: var(--color-hover);
+		}
+
+		.side_menu_button_label {
+			display: block;
+			padding-top: 0;
+			font-size: var(--font-size-md);
+			font-weight: 600;
+			overflow: hidden;
+			white-space: nowrap;
+		}
+	}
+}

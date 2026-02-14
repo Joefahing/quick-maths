@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <rect width="32" height="32" rx="8" fill="#0b0f14"/>
+  <text x="16" y="21"
+        text-anchor="middle"
+        font-size="20"
+        font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial"
+        fill="#e5e7eb">∀</text>
+</svg>

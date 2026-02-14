@@ -16,7 +16,6 @@ import classes from './SideMenu.module.css';
 export function SideMenu(): JSX.Element {
 	const navigate: NavigateFunction = useNavigate();
 	const iconSize: number = 28;
-	const noop = (): void => {};
 
 	return (
 		<aside className={classes.side_menu}>
@@ -25,16 +24,16 @@ export function SideMenu(): JSX.Element {
 					<SideMenuButton label="Home" onClicked={() => navigate(paths.home)}>
 						<img width={iconSize} height={iconSize} src={homeIcon} alt="Home" />
 					</SideMenuButton>
-					<SideMenuButton label="Settings" onClicked={noop}>
+					<SideMenuButton label="Settings" onClicked={() => navigate(paths.settings)}>
 						<img width={iconSize} height={iconSize} src={settingsIcon} alt="Settings" />
 					</SideMenuButton>
-					<SideMenuButton label="Updates" onClicked={noop}>
+					<SideMenuButton label="Updates" onClicked={() => navigate(paths.updates)}>
 						<img width={iconSize} height={iconSize} src={updatesIcon} alt="Updates" />
 					</SideMenuButton>
-					<SideMenuButton label="About Me" onClicked={noop}>
+					<SideMenuButton label="About Me" onClicked={() => navigate(paths.about)}>
 						<img width={iconSize} height={iconSize} src={aboutMeIcon} alt="About Me" />
 					</SideMenuButton>
-					<SideMenuButton label="Contact" onClicked={noop}>
+					<SideMenuButton label="Contact" onClicked={() => navigate(paths.contact)}>
 						<img width={iconSize} height={iconSize} src={contactIcon} alt="Contact" />
 					</SideMenuButton>
 				</div>

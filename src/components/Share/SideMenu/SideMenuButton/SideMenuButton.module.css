@@ -19,7 +19,7 @@
 	&:focus,
 	&:focus-visible {
 		outline: none;
-		background-color: var(--color-background);
+		background-color: var(--color-hover);
 	}
 
 	.side_menu_button_label {

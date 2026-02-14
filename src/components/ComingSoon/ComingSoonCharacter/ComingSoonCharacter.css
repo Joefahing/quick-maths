@@ -1,0 +1,33 @@
+.eye {
+	transform-origin: center;
+	animation: blink 5.5s infinite;
+}
+
+@keyframes blink {
+	0%,
+	94%,
+	100% {
+		transform: scaleY(1);
+		opacity: 1;
+	}
+	95%,
+	96% {
+		transform: scaleY(0.15);
+		opacity: 0.9;
+	}
+}
+
+.hands {
+	transform-origin: center;
+	animation: typeNudge 1.5s ease-in-out infinite;
+}
+
+@keyframes typeNudge {
+	0%,
+	100% {
+		transform: translateY(0);
+	}
+	50% {
+		transform: translateY(0.5px);
+	}
+}

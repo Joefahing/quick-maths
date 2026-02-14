@@ -36,7 +36,7 @@
 
 	/* mobile view */
 	@media (max-width: 765px) {
-		position: fixed;
+		position: sticky;
 		left: 0;
 		right: 0;
 		bottom: 0;

@@ -1,0 +1,31 @@
+.coming_soon {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 2rem;
+	position: relative;
+	padding: 0 1rem;
+
+	.message {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+
+		.title {
+			font-size: 3.5rem;
+		}
+
+		.content {
+			font-size: 1.5rem;
+		}
+	}
+
+	@media (min-width: 768px) {
+		flex-direction: row;
+
+		.message {
+			align-items: start;
+		}
+	}
+}

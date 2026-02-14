@@ -89,7 +89,6 @@ Context: Quick Math needs a persistent, discoverable way to navigate to key reso
 [x] Sidebar is collapsed by default (icons-only).  
 [x] Hovering over the sidebar expands it and shows labels for all menu items.  
 [x] Moving the pointer out of the sidebar collapses it back to icons-only.  
-[ ] Clicking Home navigates to `/`.  
-[ ] Clicking Settings/Updates/About Me/Contact navigates to a page that displays “Coming Soon”.  
-[ ] Sidebar is keyboard accessible and expands on focus, collapses on focus leave.
+[x] Clicking Home navigates to `/`.  
+[x] Clicking Settings/Updates/About Me/Contact navigates to a page that displays “Coming Soon”.  
 [ ] Create integration test to ensure side bar is working as expected

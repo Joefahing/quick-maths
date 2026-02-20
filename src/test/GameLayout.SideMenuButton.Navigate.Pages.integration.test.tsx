@@ -71,7 +71,7 @@ describe('Clicking Side Menu Buttons', () => {
 
 		await user.click(aboutButton);
 
-		const comingSoonText: HTMLElement = await screen.findByText('Coming Soon');
-		expect(comingSoonText).toBeVisible();
+		const aboutMeHeader: HTMLElement = await screen.findByRole('heading', { name: /about me/i, level: 2 });
+		expect(aboutMeHeader).toBeVisible();
 	});
 });

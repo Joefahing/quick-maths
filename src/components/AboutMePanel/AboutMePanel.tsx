@@ -9,7 +9,7 @@ export function AboutMePanel(): JSX.Element {
 		<section className={classes.about_me}>
 			<img className={classes.profile_picture} src={aboutMeImage} alt="About Me Image" />
 			<div className={classes.about_me_wrapper}>
-				<h2>About Me</h2>
+				<h2 title="About Me">About Me</h2>
 				<p>
 					Hi Users! My name is Joefa.
 					<br />

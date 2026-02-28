@@ -104,9 +104,7 @@ export function GameLayout(): JSX.Element {
 			<AppSettingContext.Provider value={appSettingContextValue}>
 				<SideMenu />
 				<div className={classes.content_container}>
-					<div className={classes.content}>
-						<Outlet context={gameOutletContext} />
-					</div>
+					<Outlet context={gameOutletContext} />
 				</div>
 			</AppSettingContext.Provider>
 		</div>

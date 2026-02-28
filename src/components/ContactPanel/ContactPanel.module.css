@@ -1,44 +1,26 @@
 .contact {
+	align-self: flex-start;
 	display: grid;
-	padding: 2rem;
+	width: 100%;
 	gap: 1rem;
-	align-items: start;
-	justify-content: center;
-	max-width: calc(var(--bp-lg) + 1px);
+	justify-items: center;
 
 	.profile_picture {
 		width: 100%;
 		object-fit: cover;
-		height: 20rem;
+		height: 15rem;
 		object-position: center 15%;
-		border-radius: 5px;
-	}
-
-	@media (min-width: 1024px) {
-		grid-template-columns: 1fr 1fr;
-		gap: 1rem;
-
-		.contact_wrapper {
-			order: 1;
-		}
-
-		.profile_picture {
-			order: 2;
-			height: 38rem;
-			object-fit: contain;
-		}
+		border-radius: var(--border-radius);
 	}
 
 	.contact_wrapper {
 		display: flex;
-		margin-top: 1rem;
+		width: 100%;
 		flex-direction: column;
 		align-items: center;
 		gap: 1rem;
-
-		@media (min-width: 1024px) {
-			align-items: flex-start;
-		}
+		max-width: 25rem;
+		padding: 0 1.5rem;
 
 		h2 {
 			font-size: 2.5rem;
@@ -53,38 +35,6 @@
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
-
-			.copy_button {
-				background-color: var(--color-surface-light);
-				border: 0;
-				width: fit-content;
-				display: flex;
-				align-items: center;
-				gap: 0.3rem;
-				padding: 0.4rem 0.5rem;
-
-				&.idle {
-					color: var(--color-text-primary);
-				}
-
-				&.success {
-					color: var(--color-success);
-				}
-
-				&.error {
-					color: var(--color-error);
-				}
-
-				img {
-					width: 1rem;
-					height: 1rem;
-				}
-
-				span {
-					font-weight: 400;
-					font-size: 0.8rem;
-				}
-			}
 		}
 
 		.email_template_container {
@@ -98,19 +48,50 @@
 				margin-bottom: 0.3rem;
 				font-weight: 600;
 				font-size: 1rem;
-
-				@media (min-width: 1024px) {
-					align-self: flex-start;
-				}
 			}
 
 			.email_template {
 				width: 100%;
-				height: 10rem;
+				min-height: 5rem;
 				background-color: var(--color-surface-light);
 				padding: 0.5rem 1rem;
 				border-radius: var(--border-radius);
+				display: flex;
+				flex-direction: column;
+				gap: 0.5rem;
+
+				.email_template_body {
+					white-space: pre-wrap;
+				}
 			}
+		}
+	}
+
+	@media (min-width: 769px) {
+		align-self: center;
+		width: 100%;
+		max-width: calc(950px + 1px);
+		grid-template-columns: 1fr 1fr;
+		justify-content: center;
+		gap: 1rem;
+		padding: 1.5rem;
+
+		.contact_wrapper {
+			order: 1;
+			padding: 0;
+			margin-top: 1rem;
+			align-items: flex-start;
+		}
+
+		.profile_picture {
+			order: 2;
+			height: 38rem;
+			object-fit: contain;
+			border-radius: 5px;
+		}
+
+		.email_template_container .email_template_title {
+			align-self: flex-start;
 		}
 	}
 }

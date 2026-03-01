@@ -1,0 +1,97 @@
+.contact {
+	align-self: flex-start;
+	display: grid;
+	width: 100%;
+	gap: 1rem;
+	justify-items: center;
+
+	.profile_picture {
+		width: 100%;
+		object-fit: cover;
+		height: 15rem;
+		object-position: center 15%;
+		border-radius: var(--border-radius);
+	}
+
+	.contact_wrapper {
+		display: flex;
+		width: 100%;
+		flex-direction: column;
+		align-items: center;
+		gap: 1rem;
+		max-width: 25rem;
+		padding: 0 1.5rem;
+
+		h2 {
+			font-size: 2.5rem;
+			text-transform: uppercase;
+		}
+
+		.email_display {
+			border: solid 1px var(--color-border-muted-l);
+			border-radius: var(--border-radius);
+			padding: 0.5rem;
+			width: 100%;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.email_template_container {
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 0.5rem;
+
+			.email_template_title {
+				margin-bottom: 0.3rem;
+				font-weight: 600;
+				font-size: 1rem;
+			}
+
+			.email_template {
+				width: 100%;
+				min-height: 5rem;
+				background-color: var(--color-surface-light);
+				padding: 0.5rem 1rem;
+				border-radius: var(--border-radius);
+				display: flex;
+				flex-direction: column;
+				gap: 0.5rem;
+
+				.email_template_body {
+					white-space: pre-wrap;
+				}
+			}
+		}
+	}
+
+	@media (min-width: 769px) {
+		align-self: center;
+		width: 100%;
+		max-width: calc(950px + 1px);
+		grid-template-columns: 1fr 1fr;
+		justify-content: center;
+		gap: 1rem;
+		padding: 1.5rem;
+
+		.contact_wrapper {
+			order: 1;
+			padding: 0;
+			margin-top: 1rem;
+			align-items: flex-start;
+		}
+
+		.profile_picture {
+			order: 2;
+			height: 38rem;
+			object-fit: contain;
+			border-radius: 5px;
+		}
+
+		.email_template_container .email_template_title {
+			align-self: flex-start;
+		}
+	}
+}

@@ -2,11 +2,11 @@ import { type NavigateFunction, useNavigate } from 'react-router-dom';
 
 import type { JSX } from 'react';
 
-import aboutMeIcon from '../../../assets/icons/SideMenu/about_me_icon.svg';
-import contactIcon from '../../../assets/icons/SideMenu/contact_icon.svg';
-import homeIcon from '../../../assets/icons/SideMenu/home_icon.svg';
-import settingsIcon from '../../../assets/icons/SideMenu/settings_icon.svg';
-import updatesIcon from '../../../assets/icons/SideMenu/updates_icon.svg';
+import aboutMeIcon from '../../../assets/icons/about_me_icon.svg';
+import contactIcon from '../../../assets/icons/email_icon.svg';
+import homeIcon from '../../../assets/icons/home_icon.svg';
+import settingsIcon from '../../../assets/icons/settings_icon.svg';
+import updatesIcon from '../../../assets/icons/updates_icon.svg';
 import paths from '../../../routes/routes';
 
 import { SideMenuButton } from './SideMenuButton/SideMenuButton';

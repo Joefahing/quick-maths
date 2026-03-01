@@ -39,6 +39,17 @@ h1 {
 	line-height: 1.1;
 }
 
+h2,
+h3,
+h4 {
+	padding: 0;
+	margin: 0;
+}
+
+p {
+	margin: 0;
+}
+
 li {
 	list-style: none;
 }
@@ -53,12 +64,21 @@ button {
 	color: var(--color-text-primary);
 	background-color: var(--color-surface);
 	cursor: pointer;
-	transition: border-color 0.25s;
+	transform-origin: center;
+	transition:
+		transform 120ms ease,
+		background-color 120ms ease,
+		border-color 120ms ease;
 }
 button:hover {
 	border-color: var(--color-hover);
 }
-button:focus,
+button:active {
+	transform: scale(0.97);
+}
+button:focus {
+	outline: none;
+}
 button:focus-visible {
 	outline: 4px auto -webkit-focus-ring-color;
 }

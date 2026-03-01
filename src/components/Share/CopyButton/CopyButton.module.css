@@ -1,0 +1,31 @@
+.copy_button {
+	background-color: var(--color-surface-light);
+	border: 0;
+	width: fit-content;
+	display: flex;
+	align-items: center;
+	gap: 0.3rem;
+	padding: 0.4rem 0.5rem;
+
+	&.idle {
+		color: var(--color-text-primary);
+	}
+
+	&.success {
+		color: var(--color-success);
+	}
+
+	&.error {
+		color: var(--color-error);
+	}
+
+	img {
+		width: 1rem;
+		height: 1rem;
+	}
+
+	span {
+		font-weight: 500;
+		font-size: 0.9rem;
+	}
+}

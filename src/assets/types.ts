@@ -47,3 +47,19 @@ export enum ActivityLevel {
 	Medium,
 	High
 }
+
+export type CopyStatus = 'idle' | 'success' | 'error';
+
+export interface CopyButtonContent {
+	iconSrc: string;
+	iconAlt: string;
+	buttonText: string;
+}
+
+export type EmailTemplateType = 'feature' | 'bug';
+
+export interface EmailTemplateData {
+	email: string;
+	subject: string;
+	bodyRow: string[];
+}

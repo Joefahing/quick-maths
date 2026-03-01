@@ -37,8 +37,9 @@ describe('Clicking Side Menu Buttons', () => {
 
 		await user.click(contactButton);
 
-		const comingSoonText: HTMLElement = await screen.findByText('Coming Soon');
-		expect(comingSoonText).toBeVisible();
+		const contactHeader: HTMLElement = await screen.findByRole('heading', { name: /contact/i, level: 2 });
+		expect(contactHeader).toBeVisible();
+		expect(await screen.findByText('Email Template')).toBeVisible();
 	});
 
 	it('User should navigate to Settings page and see SettingsPanel when Updates button is clicked', async () => {

@@ -1,6 +1,5 @@
 .about_me {
 	display: grid;
-	padding: 2rem;
 	gap: 1rem;
 	align-items: start;
 	justify-content: center;
@@ -9,7 +8,7 @@
 	.profile_picture {
 		width: 100%;
 		object-fit: cover;
-		height: 20rem;
+		height: 15rem;
 		object-position: center 15%;
 		border-radius: 0.5rem;
 	}
@@ -19,16 +18,19 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+		padding: 0 1.5rem;
 
 		h2 {
 			font-size: 2.5rem;
 			text-transform: uppercase;
+			margin-bottom: 1rem;
 		}
 	}
 
 	@media (min-width: 1024px) {
 		grid-template-columns: 1fr 1fr;
 		gap: 1rem;
+		padding: 1rem 1.5rem;
 
 		.profile_picture {
 			height: 38rem;
@@ -37,6 +39,7 @@
 
 		.about_me_wrapper {
 			align-items: start;
+			padding: 0;
 		}
 	}
 }

@@ -4,10 +4,11 @@
 	button {
 		border-radius: 0;
 		border-right-width: 0;
-		font-size: 0.8rem;
+		font-size: 0.9rem;
 		width: fit-content;
 		min-width: 6rem;
 		border-color: var(--color-border-muted-l);
+		padding: 0.5rem 0.2rem;
 
 		&.selected {
 			background-color: var(--color-selected);

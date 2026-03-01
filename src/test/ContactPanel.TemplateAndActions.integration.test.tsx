@@ -4,10 +4,11 @@ import { act, fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
+import App from '../App';
 import type { EmailTemplateData } from '../assets/types';
 import ContactPanelService from '../components/ContactPanel/ContactPanelService';
+
 import groupToggleStyles from '../components/Share/GroupToggleButtons/GroupToggleButtons.module.css';
-import App from '../App';
 
 function renderContactPage() {
 	return render(
@@ -100,7 +101,7 @@ describe('Contact panel template and actions', () => {
 			subject: 'Quick Maths Feature Request',
 			bodyRow: ['Type: Feature', 'Description:', 'Why:']
 		};
-		
+
 		const bugData: EmailTemplateData = {
 			email,
 			subject: 'Quick Maths Bug Report',

@@ -6,6 +6,24 @@
 	},
 	"versions": [
 		{
+			"version": "1.3.0",
+			"date": "2026-02-28",
+			"title": "Contact page launch",
+			"overview": "Launching Contact Page to enable users to provide useful feedback.",
+			"changes": [
+				{
+					"type": "added",
+					"scope": "ui",
+					"text": "Modified the Contact page component to fully support Contact page interactions and template-driven feedback."
+				},
+				{
+					"type": "fixed",
+					"scope": "bug",
+					"text": "Fixed an issue where a Side Menu button remained focused and did not collapse after click."
+				}
+			]
+		},
+		{
 			"version": "1.2.0",
 			"date": "2026-02-20",
 			"title": "About Me page launch",

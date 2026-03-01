@@ -2,142 +2,107 @@
 
 ## Overview
 
-Define the Contact page behavior based on the current implemented UI, then extend it with an email template preview panel.
+This spec reflects the current implemented behavior of the Contact page in QuickMath.
 
-No backend infrastructure is required (no SMTP/API/serverless).
+The Contact page is available at `/contact` and provides:
+- A visible contact email with copy-to-clipboard action
+- Template selection (`Feature` or `Bugs`)
+- A live email template preview (subject + body rows)
+- An `Email Me` CTA that opens a prefilled `mailto:` link
 
-## Current Baseline In Repo (Aligned With Current Design)
+## Current Baseline In Repo
 
-- Route and navigation are already wired:
+- Route wiring:
   - `paths.contact` in `src/routes/routes.ts`
   - `ContactPanel` mounted from `src/App.tsx`
   - Sidebar Contact button in `src/components/Share/SideMenu/SideMenu.tsx`
-- `ContactPanel` already renders real UI (not `ComingSoon`).
-- Layout behavior:
-  - Mobile: image first, content stacked below.
-  - Desktop (`min-width: 1024px`): 2-column layout, content on left and image on right.
-- Existing content in `contact_wrapper`:
+- Contact page is fully implemented (not a placeholder).
+
+## Layout And UI
+
+- Root component: `ContactPanel`
+- Mobile-first layout:
+  - Image at top
+  - Content stacked below
+- Desktop layout (`min-width: 769px`):
+  - Two columns
+  - Content on left, image on right
+- Main content includes:
   1. Heading: `Contact`
-  2. Subtitle: `Feature suggestion or bug report? Email me:`
-  3. Email display row with `quickmaths.run@gmail.com` and copy button
-  4. Toggle group: `Feature`, `Bugs`
-  5. `Email Template` section with an empty preview container
-  6. `Email Me` button (currently no action)
-- Existing copy state behavior:
+  2. Support text: `Feature suggestion or bug report? Email me:`
+  3. Email display row with address + `CopyButton`
+  4. Template toggle buttons: `Feature`, `Bugs`
+  5. `Email Template` preview card
+  6. `Email Me` button
+
+## Email Template Behavior
+
+- Type: `EmailTemplateType = 'feature' | 'bug'`
+- Default selection is `feature`
+- Template data is provided by `ContactPanelService.getEmailTemplateData(...)`
+
+### Feature template
+
+- Subject: `Quick Maths Feature Request`
+- Body rows:
+  - `Type: Feature`
+  - `Description:`
+  - `Why:`
+
+### Bug template
+
+- Subject: `Quick Maths Bug Report`
+- Body rows:
+  - `Type: Bug`
+  - `Device:`
+  - `Expected:`
+  - `Actual:`
+
+## Preview Rendering
+
+- Preview shows:
+  - `Subject:` followed by selected template subject
+  - `Body:` followed by one rendered row per body line
+- Body container uses `white-space: pre-wrap`.
+
+## Copy Behavior
+
+- Email used across page: `quickmaths.run@gmail.com`
+- Copy button states:
   - `idle` -> `Copy`
   - `success` -> `Copied`
   - `error` -> `Error`
-  - Status resets to `idle` after ~3000ms
-- Toggle state is currently `EmailTemplate = 'none' | 'feature' | 'bug'` with default `'none'`.
+- After success/error, status resets to `idle` after `3000ms` (default).
 
-## Goals For Next Iteration
+## Email CTA Behavior
 
-- Keep the current UI layout and styling direction.
-- Implement preview panel content for selected template type.
-- Add template-generation logic that can be reused by both preview and future `mailto` behavior.
+- Clicking `Email Me` builds a mailto string via `ContactPanelService.buildMailtoString(...)`.
+- Mailto format:
+  - `mailto:<email>?subject=<encoded>&body=<encoded>`
+- Body rows are joined with newline (`\n`) before URL encoding.
+- Navigation is performed by assigning `window.location.href` to the generated mailto URL.
 
-## Non-goals (This Iteration)
+## Test Coverage Status
 
-- Backend submission flow
-- Spam/rate limiting/captcha
-- Full form UX
-- Major visual redesign of the current Contact layout
+Current integration tests validate:
+- Template preview updates and selected-state toggle behavior (`Feature` <-> `Bugs`)
+- Copy action with clipboard call and `3000ms` reset
+- `Email Me` invoking mailto builder with correct selected template payload
 
-## Functional Requirements
+Primary test file:
+- `src/test/ContactPanel.TemplateAndActions.integration.test.tsx`
 
-### Preview Panel (New)
+## Non-goals (Current Implementation)
 
-- The `Email Template` container must display preview text based on selected `emailTemplate`.
-- States:
-  - `none`: show helper text prompting user to select a template.
-  - `feature`: show feature template.
-  - `bug`: show bug template.
-- Preserve line breaks in preview text.
-- Preview content is read-only.
-
-Suggested templates:
-
-```text
-Type: Feature
-Description:
-Why:
-```
-
-```text
-Type: Bug
-Device:
-Expected:
-Actual:
-```
-
-### Toggle Behavior
-
-- Keep current button labels: `Feature` and `Bugs`.
-- Keep default selection as `none`.
-- Selected button must keep distinct selected styling via `GroupToggleButtons`.
-
-### Copy Behavior
-
-- Keep existing clipboard logic and status-based button text/icons.
-- Keep ~3000ms reset timing unless product decision explicitly changes it.
-
-### Email CTA Behavior
-
-- Keep `Email Me` button visible in this iteration.
-- If mailto wiring is not implemented yet, button can remain inert or be marked as pending.
-- Template generation should be implemented in a way that can be consumed by future `mailto` wiring.
-
-## Accessibility / UX Requirements
-
-- All controls remain keyboard-accessible (`button` semantics).
-- Focus indication must remain visible on dark theme.
-- Preview text should be readable with current theme tokens.
-
-## Suggested Implementation Notes
-
-### Suggested Constants / Types
-
-```ts
-type EmailTemplate = 'none' | 'feature' | 'bug';
-
-const CONTACT_EMAIL = 'quickmaths.run@gmail.com';
-```
-
-### Suggested Helper
-
-Use a helper so preview and mailto body do not drift:
-
-```ts
-export function getEmailTemplateBody(type: EmailTemplate): string;
-```
-
-Behavior:
-
-- `none` -> helper preview text (or empty string for mailto use-case)
-- `feature` -> feature template body
-- `bug` -> bug template body
-
-### Rendering Notes
-
-- Render preview text inside `.email_template`.
-- Use CSS (`white-space: pre-wrap`) so multi-line template displays correctly.
-
-## Task Checklist
-
-- [x] Replace `ComingSoon` with real Contact UI.
-- [x] Implement responsive image/content layout (mobile stack + desktop 2-column).
-- [x] Implement clipboard copy states (`Copy` / `Copied` / `Error`) with timeout reset.
-- [x] Add toggle group for `Feature`/`Bugs` with selected styling support.
-- [x] Add `Email Template` panel shell.
-- [ ] Render dynamic preview content based on `emailTemplate`.
-- [ ] Add template helper function for reusable template generation.
-- [ ] Decide and implement `Email Me` behavior (pending or mailto wiring).
-- [ ] Add/update tests for preview rendering and template generation.
+- Backend submission APIs (SMTP, serverless, form endpoints)
+- In-app success/error submission workflow
+- Additional template categories beyond `feature` and `bug`
 
 ## Acceptance Criteria
 
-- Contact page matches current implemented layout and component structure.
-- Preview panel shows meaningful text for `none`, `feature`, and `bug` states.
-- Preview text formatting preserves line breaks.
-- Template-generation logic is centralized and reusable.
-- Existing copy behavior continues to work unchanged.
+[x] Contact page is routed and reachable from sidebar navigation.  
+[x] Contact UI renders image, heading, email row, toggle buttons, template preview, and CTA.  
+[x] Default template is `feature`.  
+[x] Switching toggle updates subject/body preview.  
+[x] Copy button writes email to clipboard and resets state after `3000ms`.  
+[x] `Email Me` generates and applies a valid prefilled `mailto:` link.

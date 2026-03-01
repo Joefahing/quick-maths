@@ -42,12 +42,6 @@
 			transform 120ms ease,
 			background-color 120ms ease;
 
-		&:hover,
-		&:focus,
-		&:focus-visible {
-			outline: none;
-			background-color: var(--color-hover);
-		}
 
 		.side_menu_button_label {
 			display: block;

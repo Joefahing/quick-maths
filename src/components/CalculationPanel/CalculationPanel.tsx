@@ -6,6 +6,8 @@ import { type Question, type QuestionAnswer } from '../../assets/types';
 import paths from '../../routes/routes';
 import { QuestionsContext, type QuestionsContextValue } from '../../shared/context/QuestionContext';
 import QuestionService from '../../shared/services/QuestionService';
+import { questionAnswered } from '../../store/GameSessionSlice';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 
 import MainCalculationQuestion from './MainCalculationQuestion/MainCalculationQuestion';
 import { ProgressBar } from './ProgressBar/ProgressBar';
@@ -13,15 +15,12 @@ import { Timer } from './Timer/Timer';
 
 import styles from './CalculationPanel.module.css';
 
-export interface CalculationPanelProps {
-	answers: QuestionAnswer[];
-	questions: Question[];
-	onQuestionAnswered: (question: QuestionAnswer) => void;
-}
+export function CalculationPanel(): JSX.Element {
+	const { questions, answers } = useAppSelector((state) => state.gameSession);
+	const dispatcher = useAppDispatch();
 
-export function CalculationPanel({ answers, questions, onQuestionAnswered }: CalculationPanelProps): JSX.Element {
 	const secondsRef = useRef(0);
-	const handleTick = useCallback((nextSecond: number) => {
+	const handleTimerTicked = useCallback((nextSecond: number) => {
 		secondsRef.current = nextSecond;
 	}, []);
 
@@ -41,7 +40,7 @@ export function CalculationPanel({ answers, questions, onQuestionAnswered }: Cal
 			time: secondsRef.current
 		};
 
-		onQuestionAnswered(result);
+		dispatcher(questionAnswered(result));
 	}
 
 	const questionsContextValue: QuestionsContextValue = {
@@ -52,7 +51,7 @@ export function CalculationPanel({ answers, questions, onQuestionAnswered }: Cal
 	return (
 		<div className={styles.panel}>
 			<section className={styles.calculation_container}>
-				<Timer onTick={handleTick} />
+				<Timer onTick={handleTimerTicked} />
 				<QuestionsContext.Provider value={questionsContextValue}>
 					<MainCalculationQuestion expression={currentQuestion.expression} onAnswerEntered={handleQuestionEntered} />
 					<ProgressBar answers={answers} />

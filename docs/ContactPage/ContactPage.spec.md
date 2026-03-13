@@ -5,6 +5,7 @@
 This spec reflects the current implemented behavior of the Contact page in QuickMath.
 
 The Contact page is available at `/contact` and provides:
+
 - A visible contact email with copy-to-clipboard action
 - Template selection (`Feature` or `Bugs`)
 - A live email template preview (subject + body rows)
@@ -85,11 +86,13 @@ The Contact page is available at `/contact` and provides:
 ## Test Coverage Status
 
 Current integration tests validate:
+
 - Template preview updates and selected-state toggle behavior (`Feature` <-> `Bugs`)
 - Copy action with clipboard call and `3000ms` reset
 - `Email Me` invoking mailto builder with correct selected template payload
 
 Primary test file:
+
 - `src/test/ContactPanel.TemplateAndActions.integration.test.tsx`
 
 ## Non-goals (Current Implementation)

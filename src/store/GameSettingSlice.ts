@@ -1,13 +1,14 @@
 import { createSlice, type PayloadAction, type Reducer } from '@reduxjs/toolkit';
 
 import { Operation } from '../assets/types';
+import LocalStorageService from '../shared/services/LocalStorageService';
 
 export interface GameSettingState {
 	selectedOperations: Operation;
 }
 
 const initialState: GameSettingState = {
-	selectedOperations: Operation.Add
+	selectedOperations: LocalStorageService.getOperations() ?? Operation.Add
 };
 
 const gameSettingSlice = createSlice({

@@ -3,8 +3,9 @@ import { type JSX } from 'react';
 import addIcon from '../../assets/icons/add_icon.svg';
 import multiplyIcon from '../../assets/icons/multiplication_icon.svg';
 import subtractIcon from '../../assets/icons/subtraction_icon.svg';
-import { Operation, type UserActivity } from '../../assets/types';
+import { Operation } from '../../assets/types';
 import useKeydown from '../../shared/hooks/useKeydown';
+import { DateUtilitiesService } from '../../shared/services/DateUtilitiesService';
 import { toggleOperations } from '../../store/GameSettingSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 
@@ -14,23 +15,17 @@ import { OperatorToggleButton } from './OperatorToggleButton/OperatorToggleButto
 import styles from './IntroPanel.module.css';
 
 export interface IntroPanelProps {
-	year: number;
-	userActivities: UserActivity[];
-	userActivitiesStreak: number;
 	onStartButtonClicked: () => void;
 }
 
-export function IntroPanel({
-	userActivities,
-	year,
-	userActivitiesStreak,
-	onStartButtonClicked
-}: IntroPanelProps): JSX.Element {
+export function IntroPanel({ onStartButtonClicked }: IntroPanelProps): JSX.Element {
 	const dispatch = useAppDispatch();
+	const { userActivities, streak } = useAppSelector((state) => state.userActivity);
+	const year = DateUtilitiesService.getCurrentUTCYear();
 
 	useKeydown('Enter', onStartButtonClicked);
 
-	const heatmapProps: ActivityHeatmapProps = { year: year, userActivities, userActivitiesStreak };
+	const heatmapProps: ActivityHeatmapProps = { year, userActivities, userActivitiesStreak: streak };
 	const selectedOperation: Operation = useAppSelector((state) => state.gameSetting.selectedOperations);
 
 	const handleOperationsChange = (operation: Operation) => {

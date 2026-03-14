@@ -8,24 +8,21 @@ import { Operation } from '../assets/types';
 import { IntroPanel } from '../components/IntroPanel/IntroPanel';
 import { gameSession } from '../store/GameSessionSlice';
 import { gameSetting } from '../store/GameSettingSlice';
+import { userActivity } from '../store/UserActivitySlice';
 
 describe('IntroPanel start and operation callbacks', () => {
 	function renderIntroPanel(onStartButtonClicked = vi.fn()) {
 		const store = configureStore({
 			reducer: {
 				gameSetting,
-				gameSession
+				gameSession,
+				userActivity
 			}
 		});
 
 		render(
 			<Provider store={store}>
-				<IntroPanel
-					year={2025}
-					userActivities={[]}
-					userActivitiesStreak={0}
-					onStartButtonClicked={onStartButtonClicked}
-				/>
+				<IntroPanel onStartButtonClicked={onStartButtonClicked} />
 			</Provider>
 		);
 

@@ -30,12 +30,13 @@ export function ScorePanel({ onAgain, onGameComplete }: ScorePanelProps): JSX.El
 		onGameComplete();
 	}, [answers, onGameComplete]);
 
-	useKeydown('Escape', onAgain);
-
+	
 	const handleGameSessionReset = () => {
 		dispatcher(resetGameSession());
 		onAgain();
 	};
+	
+	useKeydown('Escape', handleGameSessionReset);
 
 	const correctAnswerCount: number = answers.filter((x) => x.isCorrect).length;
 	const successRate: number = correctAnswerCount / answers.length;

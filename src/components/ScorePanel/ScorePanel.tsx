@@ -8,29 +8,40 @@ import errorIcon from '../../assets/icons/error_icon.svg';
 import type { QuestionAnswer } from '../../assets/types';
 import paths from '../../routes/routes';
 import useKeydown from '../../shared/hooks/useKeydown';
+import { resetGameSession } from '../../store/GameSessionSlice';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 
 import styles from './ScorePanel.module.css';
 
 const className = classNames.bind(styles);
 
 export interface ScorePanelProps {
-	answers: QuestionAnswer[];
 	onAgain: () => void;
 	onGameComplete: () => void;
 }
 
-export function ScorePanel({ answers, onAgain, onGameComplete }: ScorePanelProps): JSX.Element {
+export function ScorePanel({ onAgain, onGameComplete }: ScorePanelProps): JSX.Element {
+	const dispatcher = useAppDispatch();
+	const { answers } = useAppSelector((state) => state.gameSession);
+
 	useEffect(() => {
 		if (answers.length === 0) return;
 
 		onGameComplete();
 	}, [answers, onGameComplete]);
 
-	useKeydown('Escape', onAgain);
+	
+	const handleGameSessionReset = () => {
+		dispatcher(resetGameSession());
+		onAgain();
+	};
+	
+	useKeydown('Escape', handleGameSessionReset);
 
 	const correctAnswerCount: number = answers.filter((x) => x.isCorrect).length;
 	const successRate: number = correctAnswerCount / answers.length;
 
+	// Route guarding
 	if (answers.length == 0) {
 		return <Navigate to={paths.home} />;
 	}
@@ -43,7 +54,7 @@ export function ScorePanel({ answers, onAgain, onGameComplete }: ScorePanelProps
 				{`${correctAnswerCount}/${answers.length}`}
 				<span className={styles.face}>: {getFace(successRate)}</span>
 			</div>
-			<button onClick={onAgain}>Again</button>
+			<button onClick={handleGameSessionReset}>Again</button>
 		</div>
 	);
 }

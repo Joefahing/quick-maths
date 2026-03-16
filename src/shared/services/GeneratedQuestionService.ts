@@ -4,15 +4,23 @@ import QuestionService from './QuestionService';
 import RetrieveQuestionService from './RetrieveQuestionService';
 
 class GeneratedQuestionService extends RetrieveQuestionService {
-	private maxDigits: number = 2;
-	private maxQuestionCount: number = 9;
-	private minQuestionCount: number = 6;
-	private availableOperations: Operation[] = [Operation.Add, Operation.Subtract, Operation.Multiply];
+	private readonly maxDigits: number = 2;
+	private readonly maxQuestionCount: number = 9;
+	private readonly minQuestionCount: number = 6;
+	private readonly availableOperations: Operation[] = [Operation.Add, Operation.Subtract, Operation.Multiply];
 
-	public async getQuestion(selectedOperations: Operation): Promise<Question[] | null> {
+	public constructor() {
+		super();
+	}
+
+	public override async getQuestion(selectedOperations: Operation): Promise<Question[] | null> {
 		const questionCount = this.randomNumber(this.minQuestionCount, this.maxQuestionCount);
 		const questions: Question[] = [];
 		const operations: Operation[] = this.availableOperations.filter((op) => (selectedOperations & op) !== 0);
+
+		if (operations.length === 0) {
+			return null;
+		}
 
 		let id: number = 0;
 		while (questions.length < questionCount) {
@@ -34,7 +42,7 @@ class GeneratedQuestionService extends RetrieveQuestionService {
 		return questions;
 	}
 
-	public randomNumber(min: number, max: number): number {
+	private randomNumber(min: number, max: number): number {
 		return Math.floor(Math.random() * (max - min + 1)) + min;
 	}
 }

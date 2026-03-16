@@ -1,19 +1,12 @@
 import { type NavigateFunction, Outlet, useNavigate } from 'react-router-dom';
 
-import { type JSX, useCallback, useReducer, useRef } from 'react';
+import { type JSX, useCallback, useEffect } from 'react';
 
-import { Operation, type Question, type QuestionAnswer } from '../../assets/types';
 import paths from '../../routes/routes';
-import { AppSettingContext, type AppSettingContextValue } from '../../shared/context/AppSettingContext';
-import usePersistentState from '../../shared/hooks/usePersistentState';
-import { useUserActivities } from '../../shared/hooks/useUserActivities';
-import { gameSessionReducer } from '../../shared/reducers/GameSessionReducer';
-import { DateStringFormat, DateUtilitiesService } from '../../shared/services/DateUtilitiesService';
-import GeneratedQuestionService from '../../shared/services/GeneratedQuestionService';
-import type FetchQuestionService from '../../shared/services/RetrieveQuestionService';
-import LocalStorageUserActivityService from '../../shared/services/UserActivityService/LocalStorageUserActivityService';
-import type UserActivityService from '../../shared/services/UserActivityService/UserActivityService';
-import { type CalculationPanelProps } from '../CalculationPanel/CalculationPanel';
+import { DateUtilitiesService } from '../../shared/services/DateUtilitiesService';
+import { startGameSession } from '../../store/GameSessionSlice';
+import { useAppDispatch } from '../../store/hooks';
+import { addUserActivity, fetchUserActivities } from '../../store/UserActivitySlice';
 import { type IntroPanelProps } from '../IntroPanel/IntroPanel';
 import { type ScorePanelProps } from '../ScorePanel/ScorePanel';
 import { SideMenu } from '../Share/SideMenu/SideMenu';
@@ -24,89 +17,50 @@ import '../../App.css';
 import classes from './GameLayout.module.css';
 
 export function GameLayout(): JSX.Element {
-	const [selectedOperations, setSelectedOperations] = usePersistentState<Operation>('operation', Operation.Add);
-	const [gameSession, dispatch] = useReducer(gameSessionReducer.reducer, gameSessionReducer.initialState);
-
-	const fetchQuestionService: FetchQuestionService = useRef(new GeneratedQuestionService()).current;
-	const userActivityService: UserActivityService = useRef(new LocalStorageUserActivityService()).current;
+	const dispatch = useAppDispatch();
 	const navigate: NavigateFunction = useNavigate();
-	const { userActivities, streak, addUserActivity } = useUserActivities(
-		DateUtilitiesService.getCurrentUTCYear(),
-		userActivityService
-	);
+	const year = DateUtilitiesService.getCurrentUTCYear();
 
-	const { answers, questions } = gameSession;
+	useEffect(() => {
+		dispatch(fetchUserActivities(year));
+	}, [dispatch, year]);
 
-	const handleStart = async () => {
-		const questionsFromApi: Question[] | null = await fetchQuestionService.getQuestion(selectedOperations);
+	const handleGameStart = async () => {
+		const result = await dispatch(startGameSession());
 
-		if (questionsFromApi != null) {
-			dispatch({ type: 'init', questions: questionsFromApi });
+		if (startGameSession.fulfilled.match(result)) {
 			navigate(paths.calculate);
 		}
 	};
 
-	const handleQuestionAnswered = (answer: QuestionAnswer) => {
-		dispatch({ type: 'answer_added', answer });
-	};
-
 	const handleReset = () => {
-		dispatch({ type: 'reset' });
 		navigate(paths.home);
 	};
 
-	const handleOperationClicked = (operation: Operation) => {
-		setSelectedOperations((prevOperation) => {
-			const newOperation: Operation =
-				prevOperation & operation ? prevOperation & ~operation : prevOperation | operation;
-
-			return newOperation ? newOperation : prevOperation;
-		});
-	};
-
 	const handleGameCompleted = useCallback(() => {
-		addUserActivity();
-	}, [addUserActivity]);
+		dispatch(addUserActivity());
+	}, [dispatch]);
 
 	const introPanelProps: IntroPanelProps = {
-		selectedOperations: selectedOperations,
-		year: DateUtilitiesService.getCurrentUTCYear(),
-		userActivities: userActivities,
-		userActivitiesStreak: streak,
-		onOperationClicked: handleOperationClicked,
-		onStart: handleStart
-	};
-
-	const calculationPanelProps: CalculationPanelProps = {
-		answers: answers,
-		questions: questions,
-		onQuestionAnswered: handleQuestionAnswered
+		onStartButtonClicked: handleGameStart
 	};
 
 	const scorePanelProps: ScorePanelProps = {
-		answers: answers,
 		onAgain: handleReset,
 		onGameComplete: handleGameCompleted
 	};
 
-	const appSettingContextValue: AppSettingContextValue = {
-		dateKeyFormat: DateStringFormat.YearMonthDay
-	};
-
 	const gameOutletContext: GameOutletContext = {
 		introPanelProps,
-		calculationPanelProps,
 		scorePanelProps
 	};
 
 	return (
 		<div className={classes.game_layout}>
-			<AppSettingContext.Provider value={appSettingContextValue}>
-				<SideMenu />
-				<div className={classes.content_container}>
-					<Outlet context={gameOutletContext} />
-				</div>
-			</AppSettingContext.Provider>
+			<SideMenu />
+			<div className={classes.content_container}>
+				<Outlet context={gameOutletContext} />
+			</div>
 		</div>
 	);
 }

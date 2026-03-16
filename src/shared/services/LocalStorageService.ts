@@ -1,4 +1,16 @@
+import { Operation } from '../../assets/types';
+
+const OPERATIONS_KEY: string = 'operations';
+
 export default class LocalStorageService {
+	public static getOperations(): Operation | undefined {
+		return LocalStorageService.getItem<Operation>(OPERATIONS_KEY);
+	}
+
+	public static setOperations(operations: Operation): Operation | undefined {
+		return LocalStorageService.setItem<Operation>(OPERATIONS_KEY, operations);
+	}
+
 	public static getItem<T>(key: string): T | undefined {
 		try {
 			const item: string | null = window.localStorage.getItem(key);

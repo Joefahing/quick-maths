@@ -15,10 +15,12 @@
 		"test:ui": "vitest --ui"
 	},
 	"dependencies": {
+		"@reduxjs/toolkit": "^2.11.2",
 		"@vitest/ui": "^4.0.15",
 		"classnames": "^2.5.1",
 		"react": "^19.1.1",
 		"react-dom": "^19.1.1",
+		"react-redux": "^9.2.0",
 		"react-router-dom": "^7.9.2"
 	},
 	"devDependencies": {

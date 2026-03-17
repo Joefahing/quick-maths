@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 
+import { Analytics } from '@vercel/analytics/react';
 import type { JSX } from 'react';
 import { Provider } from 'react-redux';
 
@@ -28,6 +29,7 @@ function App(): JSX.Element {
 					<Route path={paths.contact} element={<ContactPanel />} />
 				</Route>
 			</Routes>
+			<Analytics />
 		</Provider>
 	);
 }

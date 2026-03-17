@@ -16,6 +16,7 @@
 	},
 	"dependencies": {
 		"@reduxjs/toolkit": "^2.11.2",
+		"@vercel/analytics": "^2.0.1",
 		"@vitest/ui": "^4.0.15",
 		"classnames": "^2.5.1",
 		"react": "^19.1.1",
